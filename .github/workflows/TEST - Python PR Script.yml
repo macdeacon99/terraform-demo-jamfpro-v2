@@ -1,0 +1,30 @@
+name: Apply to Staging
+
+on:
+    workflow_dispatch:
+
+jobs:
+  update-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyGithub
+      
+      - name: Run PR manager
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_BRANCH: "feat-test"
+        run: python .github/supporting_scripts/pr.py
