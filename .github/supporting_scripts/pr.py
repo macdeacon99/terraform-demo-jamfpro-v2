@@ -57,36 +57,34 @@ def get_or_create_pr(repo_name, head_branch, base_branch="main", github_token=No
 
 
 
-# def update_pr_with_text(pr, message):
-#     """
-#     Add a comment to the PR with specified text.
+def update_pr_with_text(pr):
+    """
+    Add a comment to the PR with specified text.
     
-#     Args:
-#         pr: github.PullRequest.PullRequest object
-#         message (str): Comment text to add
-#     """
-#     timestamp = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
-#     comment = f"""🤖 Automated update at {timestamp}
+    Args:
+        pr: github.PullRequest.PullRequest object
+        message (str): Comment text to add
+    """
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
+    comment = f"This is an automatically aded comment: {timestamp}"
 
-# {message}"""
+    try:
+        pr.create_issue_comment(comment)
+        print(f"Added comment to PR #{pr.number}")
 
-#     try:
-#         pr.create_issue_comment(comment)
-#         print(f"Added comment to PR #{pr.number}")
-#     except GithubException as e:
-#         print(f"Error adding comment: {e}")
-#         raise
+    except GithubException as e:
+        print(f"Error adding comment: {e}")
+        raise
 
 def main():
     repo_name = os.getenv('GITHUB_REPOSITORY')
     head_branch = os.getenv('GITHUB_HEAD_REF') or os.getenv('GITHUB_REF_NAME')
     base_branch = "main"
-    message = "Your custom message here"
 
     try:
         pr = get_or_create_pr(repo_name, head_branch, base_branch)
         print(pr)
-        # update_pr_with_text(pr, message)
+        update_pr_with_text(pr)
 
     except Exception as e:
         print(f"Failed to process PR: {e}")
