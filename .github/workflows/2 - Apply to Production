@@ -1,7 +1,0 @@
-# name: Apply to Production
-
-# on:
-#   push:
-#     tags:
-#       - 'v*.*.*'  # Matches semantic versioning tags like v1.0.0
-#       # - '*'     # Uncomment to match all tags
