@@ -6,6 +6,12 @@ on:
 jobs:
   update-pr:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}/python_test:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
     permissions:
       pull-requests: write
       contents: write
