@@ -10,6 +10,8 @@ BASE_BRANCH = "main"
 HEAD_BRANCH = os.environ.get("HEAD_BRANCH")
 TOKEN = os.environ.get("GITHUB_TOKEN")
 
+print(list(os.environ.keys()))
+
 if not TOKEN:
     raise ValueError("GITHUB_TOKEN env var is none")
 
