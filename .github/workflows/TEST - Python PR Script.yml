@@ -27,4 +27,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HEAD_BRANCH: "feat-test"
-        run: python .github/supporting_scripts/pr.py
+        run: python .github/scripts/pr.py
