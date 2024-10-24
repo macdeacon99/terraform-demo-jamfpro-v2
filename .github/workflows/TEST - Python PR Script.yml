@@ -13,7 +13,7 @@ jobs:
       contents: write
 
     container:
-      image: ghcr.io/${{ github.repository }}/python_test:latest
+      image: ghcr.io/${{ github.repository }}/python:latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         HEAD_BRANCH: feat-test

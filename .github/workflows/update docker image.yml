@@ -19,8 +19,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: docker/python
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/python_test:latest
-            ghcr.io/${{ github.repository }}/python_test:${{ github.sha }}
+            ghcr.io/${{ github.repository }}/python:latest
+            ghcr.io/${{ github.repository }}/python:${{ github.sha }}
