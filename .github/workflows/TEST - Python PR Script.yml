@@ -49,4 +49,6 @@ jobs:
             -v ${{ github.workspace }}:/python_test \
             -w /python_test \
             ghcr.io/${{ github.repository }}/python_test:latest \
-            python .github/scripts/create_update_pr.py
+            python .github/scripts/create_update_pr.py \
+            -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+            -e HEAD_BRANCH="feat-rest"
