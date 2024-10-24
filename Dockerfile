@@ -1,7 +1,7 @@
 FROM python:3.13-slim
 
 WORKDIR /app
-COPY requirements.txt .
+COPY .github/scripts/requirements.txt .
 
 # install dependencies
 # --no-cache-dir flag reduces the image size
