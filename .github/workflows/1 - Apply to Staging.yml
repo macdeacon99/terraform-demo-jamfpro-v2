@@ -5,18 +5,7 @@ on:
     push:
       branches:
         - 'feat-*'
-        - 'fix-*'
-        - 'docs-*'
-        - 'style-*'
-        - 'refactor-*'
-        - 'test-*'
-        - 'chore-*'
-        - 'build-*'
-        - 'ci-*'
-        - 'perf-*'
-      paths:
-        - '**/*.tf'
-
+        - 'bugfix-*'
 
 jobs:
   check-branch-name:
