@@ -13,6 +13,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     permissions:
+      packages: read
       pull-requests: write
       contents: write
     
