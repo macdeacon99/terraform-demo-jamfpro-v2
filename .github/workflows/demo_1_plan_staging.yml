@@ -21,7 +21,7 @@ jobs:
 
       - name: execute branch check script
         run: |
-          chmod +x .github/scripts/branch_check.sh
-          ./.github/scripts/branch_check.sh
+          chmod +x .github/scripts/branch_name_check.sh
+          ./.github/scripts/branch_name_check.sh
 
         shell: bash

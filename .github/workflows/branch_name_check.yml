@@ -1,0 +1,8 @@
+name: "Check branch name is compliant with conventional commits"
+
+on:
+    workflow_call:
+
+jobs:
+  check-branch-name:
+    uses: ./.github/workflows/branch_name_check.yml
