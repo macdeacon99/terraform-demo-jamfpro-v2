@@ -14,7 +14,7 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v4
 
-      - name: execute branch check script
+      - name: run branch check
         run: |
           chmod +x .github/scripts/branch_name_check.sh
           ./.github/scripts/branch_name_check.sh
