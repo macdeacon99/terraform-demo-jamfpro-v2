@@ -30,11 +30,11 @@ jobs:
       - name: install terraform
         uses: hashicorp/setup-terraform@v3.1.2
 
-      - name: validte
+      - name: validate
         run: terraform validate
 
       - name: init
-        run: terraforn init
+        run: terraform init
 
       - name: plan
         run: terraform plan
