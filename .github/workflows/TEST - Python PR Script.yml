@@ -1,4 +1,4 @@
-name: Python Test
+name: Test - Run Python Script in Docker
 
 on:
     workflow_dispatch:

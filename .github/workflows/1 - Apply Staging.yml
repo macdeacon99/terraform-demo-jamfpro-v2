@@ -1,4 +1,4 @@
-name: Apply to Staging
+name: Apply - Staging
 
 on:
     workflow_dispatch:
