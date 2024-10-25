@@ -9,11 +9,36 @@ on:
       - main
 
     paths:
-      - '**.tf'
+      - 'workload/terraform/jamfpro/*.tf'
 
+env:
+  TF_LOG: INFO
 
 jobs:
   check-branch-name:
     uses: ./.github/workflows/branch_name_check.yml
     with:
       branch-name: ${{ github.event.pull_request.head.ref }}
+  
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install terraform
+        uses: hashicorp/setup-terraform@v3.1.2
+
+      - name: validte
+        run: terraform validate
+
+      - name: init
+        run: terraforn init
+
+      - name: plan
+        run: terraform plan
+
+      - name: test
+        run: echo ${{ steps.plan.outcome }}
+      
