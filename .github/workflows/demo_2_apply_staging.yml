@@ -1,15 +1,7 @@
-name: Demo | 1 - Apply - Staging
+name: "Demo | 2 - Apply - Staging"
 
 on:
-  pull_request:
-    types: [opened, reopened]
-    
-    branches:
-      - main
-
-    paths:
-      - '**.tf'
-
+    workflow_dispatch:
 
 jobs:
   check-branch-name:
@@ -25,3 +17,4 @@ jobs:
           ./.github/scripts/branch_check.sh
 
         shell: bash
+            
