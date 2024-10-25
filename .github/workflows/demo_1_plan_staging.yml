@@ -14,7 +14,6 @@ on:
 
 jobs:
   check-branch-name:
-    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
@@ -26,23 +25,3 @@ jobs:
           ./.github/scripts/branch_check.sh
 
         shell: bash
-
-  pr-info:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get PR Information
-        run: |
-          echo "PR Number: ${{ github.event.pull_request.number }}"
-          echo "PR Title: ${{ github.event.pull_request.title }}"
-          echo "PR Author: ${{ github.event.pull_request.user.login }}"
-          echo "Branch: ${{ github.event.pull_request.head.ref }}"
-          echo "Base Branch: ${{ github.event.pull_request.base.ref }}"
-          echo "Commits: ${{ github.event.pull_request.commits }}"
-          echo "Changed Files: ${{ github.event.pull_request.changed_files }}"
-          echo "Additions: ${{ github.event.pull_request.additions }}"
-          echo "Deletions: ${{ github.event.pull_request.deletions }}"
-          echo "Labels: ${{ join(github.event.pull_request.labels.*.name, ', ') }}"
-
-      - name: Use PR Info in Conditional
-        if: github.event.pull_request.base.ref == 'main'
-        run: echo "This PR targets the main branch"
