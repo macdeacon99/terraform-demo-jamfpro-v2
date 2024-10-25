@@ -14,14 +14,4 @@ on:
 
 jobs:
   check-branch-name:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@v4
-
-      - name: execute branch check script
-        run: |
-          chmod +x .github/scripts/branch_name_check.sh
-          ./.github/scripts/branch_name_check.sh
-
-        shell: bash
+    uses: ./.github/workflows/branch_name_check.yml
