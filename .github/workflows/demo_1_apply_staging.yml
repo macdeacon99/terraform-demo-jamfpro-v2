@@ -1,11 +1,15 @@
 name: Demo | 1 - Apply - Staging
 
 on:
-    workflow_dispatch:
-    push:
-      branches:
-        - 'feat-*'
-        - 'bugfix-*'
+  pull_request:
+    types: [opened, reopened]
+    
+    branches:
+      - main
+
+    paths:
+      - '**.tf'
+
 
 jobs:
   check-branch-name:
