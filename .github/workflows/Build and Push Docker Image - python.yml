@@ -1,4 +1,4 @@
-name: Build and Push Docker Image (Python)
+name: Build and Push Docker Image - docker/python
 
 on:
   workflow_dispatch:
