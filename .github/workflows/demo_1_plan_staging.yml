@@ -33,7 +33,7 @@ jobs:
       branch-name: ${{ github.event.pull_request.head.ref }}
   
   # Terraform Plan
-  terraform:
+  terraform-upload-and-plan:
     needs: check-branch-name
     environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}
     runs-on: ubuntu-latest
@@ -65,5 +65,16 @@ jobs:
           workspace: ${{ vars.TF_WORKSPACE }}
           configuration_version: ${{ steps.upload-config.outputs.configuration_version_id }}
           plan_only: true
+
+      - name: Save Run Info
+        run: |
+          cat << EOF > outputs.txt
+          {
+            "status": ${{ steps.terraform-plan.outputs.status }}
+          }
+          EOF
+
+      - name: Echo file
+        run: cat outputs.txt
 
 
