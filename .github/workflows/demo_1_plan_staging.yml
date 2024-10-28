@@ -49,14 +49,17 @@ jobs:
         uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.1
         id: upload-config
         with:
+          token: ${{ secrets.TF_API_KEY }}
           workspace: ${{ vars.TF_WORKSPACE }}
           directory: "workload/terraform/jamfpro"
           speculative: true
 
         # Run plan using hashi create-run
       - name: Terraform Plan
+        id: terraform-plan
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
         with:
+          token: ${{ secrets.TF_API_KEY }}
           workspace: ${{ vars.TF_WORKSPACE }}
           configuration_version: ${{ steps.upload-config.outputs.configuration_version_id }}
 
