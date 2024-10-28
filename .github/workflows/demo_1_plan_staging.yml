@@ -27,7 +27,7 @@ on:
 jobs:
   # Check changes are coming from a feat-* or bugfix-* named branch
   check-branch-name:
-    uses: ./.github/workflows/utility/branch_name_check.yml
+    uses: ./.github/workflows/branch_name_check.yml
     with:
       branch-name: ${{ github.event.pull_request.head.ref }}
   
