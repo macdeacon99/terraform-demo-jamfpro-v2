@@ -41,12 +41,14 @@ jobs:
       TF_API_KEY: ${{ secrets.TF_API_KEY }}
       TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORG }}
 
-    # Bring repo to runner
+    
     steps:
+
+      # Bring repo to runner
       - name: checkout
         uses: actions/checkout@v4
 
-
+        # Upload the config to TF cloud
       - name: Upload Configuration
         uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.1
         id: upload-config
@@ -56,7 +58,7 @@ jobs:
           directory: "workload/terraform/jamfpro"
           speculative: true
 
-        # Run plan using hashi create-run
+        # Run speculative plan using hashi create-run 
       - name: Terraform Plan
         id: terraform-plan
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
@@ -66,6 +68,7 @@ jobs:
           configuration_version: ${{ steps.upload-config.outputs.configuration_version_id }}
           plan_only: true
 
+        # Deposit run info to the runner in temporary .json file
       - name: Save Run Info
         run: |
           cat << EOF > outputs.json
@@ -81,7 +84,8 @@ jobs:
           }
           EOF
 
-      - name: Echo file
-        run: cat outputs.json
+      # TO DO
+      # Call amended python script to pickup the file and despoit it as a comment on the PR which triggered this workflow
+      # Check if the "status" == "success". If yes, exit success, else exit failure.
 
 
