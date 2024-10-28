@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: "Which env vars to use"
+        description: "Target RTL Environment"
         required: true
         type: choice
         options:
