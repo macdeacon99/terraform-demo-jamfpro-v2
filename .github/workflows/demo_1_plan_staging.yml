@@ -45,7 +45,7 @@ jobs:
       - name: "plan"
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
         with:
-          token: ${{ secrets.TF_USER_API_TOKEN }}
+          token: ${{ secrets.TF_USER_API_KEY }}
           workspace: ${{ vars.TF_WORKSPACE }}
           organization: ${{ vars.TF_CLOUD_ORG }}
 
