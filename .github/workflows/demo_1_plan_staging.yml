@@ -71,7 +71,6 @@ jobs:
           cat << EOF > outputs.json
           {
             "status": ${{ steps.terraform-plan.outputs.status }},
-            "payload": ${{ steps.terraform-plan.outputs.payload }},
             "run_id": ${{ steps.terraform-plan.outputs.run_id }},
             "run_status": ${{ steps.terraform-plan.outputs.run_status }},
             "run_message": ${{ steps.terraform-plan.outputs.run_message }},
