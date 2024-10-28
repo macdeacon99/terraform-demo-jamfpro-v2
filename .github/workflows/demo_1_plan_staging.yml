@@ -27,12 +27,14 @@ on:
 jobs:
   # Check changes are coming from a feat-* or bugfix-* named branch
   check-branch-name:
+    if: github.event_name != 'workflow_dispatch'
     uses: ./.github/workflows/branch_name_check.yml
     with:
-      branch-name: ${{ github.ref_name }}
+      branch-name: ${{ github.event.pull_request.head.ref }}
   
   # Terraform Plan
   terraform:
+    needs: check-branch-name
     environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}
     runs-on: ubuntu-latest
     env:
