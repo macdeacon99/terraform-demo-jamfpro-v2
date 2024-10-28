@@ -35,6 +35,9 @@ jobs:
   terraform:
     environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}
     runs-on: ubuntu-latest
+    env:
+      TF_API_KEY: ${{ secrets.TF_API_KEY }}
+      TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORG }}
 
     # Bring repo to runner
     steps:
@@ -54,9 +57,7 @@ jobs:
       - name: Terraform Plan
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
         with:
-          token: ${{ secrets.TF_API_KEY }}
           workspace: ${{ vars.TF_WORKSPACE }}
-          organization: ${{ vars.TF_CLOUD_ORG }}
           configuration_version: ${{ steps.upload-config.outputs.configuration_version_id }}
 
 
