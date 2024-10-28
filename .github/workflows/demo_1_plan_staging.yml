@@ -68,13 +68,21 @@ jobs:
 
       - name: Save Run Info
         run: |
-          cat << EOF > outputs.txt
+          cat << EOF > outputs.json
           {
-            "status": ${{ steps.terraform-plan.outputs.status }}
+            "status": ${{ steps.terraform-plan.outputs.status }},
+            "payload": ${{ steps.terraform-plan.outputs.payload }},
+            "run_id": ${{ steps.terraform-plan.outputs.run_id }},
+            "run_status": ${{ steps.terraform-plan.outputs.run_status }},
+            "run_message": ${{ steps.terraform-plan.outputs.run_message }},
+            "run_link": ${{ steps.terraform-plan.outputs.run_link }},
+            "plan_id": ${{ steps.terraform-plan.outputs.plan_id }},
+            "plan_status": ${{ steps.terraform-plan.outputs.plan_status }},
+            "configuration_version_id": ${{ steps.terraform-plan.outputs.configuration_version_id }}
           }
           EOF
 
       - name: Echo file
-        run: cat outputs.txt
+        run: cat outputs.json
 
 
