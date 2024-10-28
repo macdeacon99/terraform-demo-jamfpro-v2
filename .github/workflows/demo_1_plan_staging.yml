@@ -44,8 +44,9 @@ jobs:
         # Run plan using hashi create-run
       - name: "plan"
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
+        env:
+          TF_API_TOKEN: ${{ secrets.TF_USER_API_KEY }}
         with:
-          token: ${{ secrets.TF_USER_API_KEY }}
           workspace: ${{ vars.TF_WORKSPACE }}
           organization: ${{ vars.TF_CLOUD_ORG }}
 
