@@ -29,7 +29,7 @@ jobs:
   check-branch-name:
     uses: ./.github/workflows/branch_name_check.yml
     with:
-      branch-name: ${{ github.event.pull_request.head.ref }}
+      branch-name: ${{ github.ref_name }}
   
   # Terraform Plan
   terraform:
