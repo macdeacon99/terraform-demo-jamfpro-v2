@@ -41,14 +41,22 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
+
+      - name: Upload Configuration
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.1
+        id: upload-config
+        with:
+          workspace: ${{ vars.TF_WORKSPACE }}
+          directory: "workload/terraform/jamfpro"
+          speculative: true
+
         # Run plan using hashi create-run
-      - name: "plan"
+      - name: Terraform Plan
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
-        env:
-          TF_API_TOKEN: ${{ secrets.TF_API_KEY }}
         with:
           token: ${{ secrets.TF_API_KEY }}
           workspace: ${{ vars.TF_WORKSPACE }}
           organization: ${{ vars.TF_CLOUD_ORG }}
+          configuration_version: ${{ steps.upload-config.outputs.configuration_version_id }}
 
 
