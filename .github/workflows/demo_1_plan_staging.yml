@@ -52,7 +52,6 @@ jobs:
           token: ${{ secrets.TF_API_KEY }}
           workspace: ${{ vars.TF_WORKSPACE }}
           directory: "workload/terraform/jamfpro"
-          speculative: true
 
         # Run plan using hashi create-run
       - name: Terraform Plan
