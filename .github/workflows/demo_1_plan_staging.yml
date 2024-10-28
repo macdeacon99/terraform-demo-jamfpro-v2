@@ -1,44 +1,52 @@
-name: Demo | 1 - Plan - Staging
+name: Demo | Workflow 1 - Plan Targetted at Staging
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: "Which env vars to use"
+        required: true
+        type: choice
+        options:
+          - sandbox
+          - staging
+          - production
+  
   pull_request:
     types: [opened, reopened]
     
+    # Target
     branches:
       - main
 
+    # Only if .tf files in this directory are part of the diff.
     paths:
       - 'workload/terraform/jamfpro/*.tf'
 
-env:
-  TF_LOG: INFO
 
 jobs:
+  # Check changes are coming from a feat-* or bugfix-* named branch
   check-branch-name:
     uses: ./.github/workflows/branch_name_check.yml
     with:
       branch-name: ${{ github.event.pull_request.head.ref }}
   
+  # Terraform Plan
   terraform:
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}
     runs-on: ubuntu-latest
 
+    # Bring repo to runner
     steps:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: install terraform
-        uses: hashicorp/setup-terraform@v3.1.2
+        # Run plan using hashi create-run
+      - name: "plan"
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
+        with:
+          token: ${{ secrets.TF_USER_API_TOKEN }}
+          workspace: ${{ vars.TF_WORKSPACE }}
+          organization: ${{ vars.TF_CLOUD_ORG }}
 
-      - name: validate
-        run: terraform validate
 
-      - name: init
-        run: terraform init
-
-      - name: plan
-        run: terraform plan
-
-      - name: test
-        run: echo ${{ steps.plan.outcome }}
-      
