@@ -33,7 +33,7 @@ jobs:
       branch-name: ${{ github.event.pull_request.head.ref }}
   
   # Terraform Plan
-  terraform-upload-and-plan:
+  terraform-upload-config-and-plan:
     needs: check-branch-name
     environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}
     runs-on: ubuntu-latest
@@ -45,11 +45,11 @@ jobs:
     steps:
 
       # Bring repo to runner
-      - name: checkout
+      - name: Checkout repo to runner
         uses: actions/checkout@v4
 
         # Upload the config to TF cloud
-      - name: Upload Configuration
+      - name: Upload configuration to tf cloud
         uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.1
         id: upload-config
         with:
@@ -59,7 +59,7 @@ jobs:
           speculative: true
 
         # Run speculative plan using hashi create-run 
-      - name: Terraform Plan
+      - name: Terraform plan
         id: terraform-plan
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
         with:
@@ -69,7 +69,7 @@ jobs:
           plan_only: true
 
         # Deposit run info to the runner in temporary .json file
-      - name: Save Run Info
+      - name: Save run info to json file
         run: |
           cat << EOF > outputs.json
           {
@@ -81,24 +81,26 @@ jobs:
             "run_link": "${{ steps.terraform-plan.outputs.run_link }}",
             "plan_id": "${{ steps.terraform-plan.outputs.plan_id }}",
             "plan_status": "${{ steps.terraform-plan.outputs.plan_status }}",
-            "configuration_version_id": "${{ steps.terraform-plan.outputs.configuration_version_id }}"
-            "payload_info": "${{steps.terraform-plan.outputs.payload}}"
+            "configuration_version_id": "${{ steps.terraform-plan.outputs.configuration_version_id }}",
+            "payload_info": ${{steps.terraform-plan.outputs.payload}}
           }
           EOF
 
-      - name: Upload outputs as Artifact
+        # Upload output as artifact
+      - name: Upload plan output json artifact
         uses: actions/upload-artifact@v4
         with:
-          name: output-test
+          name: ${{ vars.PLAN_OUTPUT_ARTIFACT_NAME }}
           path: outputs.json
           retention-days: 0
 
+  # Update the PR with the artifact info
   update-pr:
-    name: Update PR
-    needs: terraform-upload-and-plan
+    name: Deposit plan output on trigger pr
+    needs: terraform-upload-config-and-plan
     uses: ./.github/workflows/run_python_script.yml
     with:
-      outputs-payload: output-test
+      outputs-payload: ${{ vars.PLAN_OUTPUT_ARTIFACT_NAME }}
 
 
       # TO DO

@@ -79,7 +79,7 @@ def update_pr_with_text(pr):
 
     try:
         pr.create_issue_comment(comment)
-        pr.create_issue_comment(payload_info)
+        # pr.create_issue_comment(payload_info) Do we need this? It's very bulky.
         print(f"Added comment to PR #{pr.number}")
 
     except GithubException as e:
