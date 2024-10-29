@@ -29,16 +29,16 @@ jobs:
         OUTPUTS_PAYLOAD: ${{ inputs.outputs-payload }}
       
     steps:
-      - name: checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: download artifact
+      - name: Download artifact
         id: download-artifact
         uses: actions/download-artifact@v4
         with:
           name: ${{ vars.PLAN_OUTPUT_ARTIFACT_NAME }}
 
-      - name: run pr update python utility
+      - name: Run pr update python utility
         run: python .github/scripts/update_pr.py
         env:
           ARTIFACT_PATH: ${{ steps.download-artifact.outputs.download-path }}

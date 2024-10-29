@@ -45,11 +45,11 @@ jobs:
     steps:
 
       # Bring repo to runner
-      - name: checkout repo to runner
+      - name: Checkout repo to runner
         uses: actions/checkout@v4
 
         # Upload the config to TF cloud
-      - name: upload configuration to tf cloud
+      - name: Upload configuration to tf cloud
         uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.1
         id: upload-config
         with:
@@ -59,7 +59,7 @@ jobs:
           speculative: true
 
         # Run speculative plan using hashi create-run 
-      - name: terraform plan
+      - name: Terraform plan
         id: terraform-plan
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
         with:
@@ -69,7 +69,7 @@ jobs:
           plan_only: true
 
         # Deposit run info to the runner in temporary .json file
-      - name: save run info to json file
+      - name: Save run info to json file
         run: |
           cat << EOF > outputs.json
           {
@@ -87,7 +87,7 @@ jobs:
           EOF
 
         # Upload output as artifact
-      - name: upload plan output json artifact
+      - name: Upload plan output json artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ vars.PLAN_OUTPUT_ARTIFACT_NAME }}
@@ -96,7 +96,7 @@ jobs:
 
   # Update the PR with the artifact info
   update-pr:
-    name: deposit plan output on trigger pr
+    name: Deposit plan output on trigger pr
     needs: terraform-upload-config-and-plan
     uses: ./.github/workflows/run_python_script.yml
     with:
