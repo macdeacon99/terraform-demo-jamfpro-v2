@@ -37,7 +37,7 @@ def get_pr():
     target_pr_id = file["pr_ref"]
     print(f"LOG: {target_pr_id}")
     try:
-        repo = GH.get_repo("terraform-demo-jamfpro-v2")
+        repo = GH.get_repo("deploymenttheory/terraform-demo-jamfpro-v2")
         pr = repo.get_pull(target_pr_id)
 
         if pr:
