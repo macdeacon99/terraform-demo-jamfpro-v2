@@ -18,7 +18,7 @@ GH = Github(TOKEN)
 
 
 def open_drop_file() -> dict:
-    with open(DROPFILE_PATH, "r", encoding="UTF-8") as f:
+    with open(DROPFILE_PATH + "outputs.json", "r", encoding="UTF-8") as f:
         return json.load(f)
 
 
