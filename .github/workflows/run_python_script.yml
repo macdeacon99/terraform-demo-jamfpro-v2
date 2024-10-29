@@ -3,7 +3,7 @@ name: Test - Run Python Script in Docker
 on:
     workflow_call:
       inputs:
-        file-name:
+        pr-ref:
           required: true
           type: string
 
@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Python Script
-        run: python .github/scripts/create_update_pr.py
+        run: python .github/scripts/update_pr.py
 
 
     
