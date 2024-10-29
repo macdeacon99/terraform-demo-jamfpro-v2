@@ -60,7 +60,7 @@ jobs:
         uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.3.1
         with:
           token: ${{ secrets.TF_API_KEY }}
-          run: ${{ steps.terraform-plan.outputs.plan_id }}
+          run: ${{ steps.terraform-plan.outputs.run_id }}
           
 
     
