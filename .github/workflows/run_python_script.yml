@@ -8,10 +8,6 @@ on:
         type: string
 
   workflow_call:
-    # inputs:
-    #   pr-ref:
-    #     required: true
-    #     type: string
 
 jobs:
   update-pr:
@@ -26,7 +22,6 @@ jobs:
       image: ghcr.io/${{ github.repository }}/python:latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-        HEAD_BRANCH: feat-test
       
     steps:
       - name: Checkout code
