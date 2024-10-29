@@ -84,6 +84,9 @@ jobs:
             "configuration_version_id": "${{ steps.terraform-plan.outputs.configuration_version_id }}"
           }
           EOF
+          
+      - name: TEST
+        run: echo "TEST HERE"
 
       - name: Run PR Updater
         uses: ./~workflows/run_python_script.yml
