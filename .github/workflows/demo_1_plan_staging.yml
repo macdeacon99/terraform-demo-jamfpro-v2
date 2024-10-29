@@ -101,10 +101,3 @@ jobs:
     uses: ./.github/workflows/run_python_script.yml
     with:
       outputs-payload: ${{ vars.PLAN_OUTPUT_ARTIFACT_NAME }}
-
-
-      # TO DO
-      # Call amended python script to pickup the file and despoit it as a comment on the PR which triggered this workflow
-      # Check if the "status" == "success". If yes, exit success, else exit failure.
-
-
