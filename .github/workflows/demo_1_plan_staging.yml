@@ -81,7 +81,7 @@ jobs:
             "run_link": "${{ steps.terraform-plan.outputs.run_link }}",
             "plan_id": "${{ steps.terraform-plan.outputs.plan_id }}",
             "plan_status": "${{ steps.terraform-plan.outputs.plan_status }}",
-            "configuration_version_id": "${{ steps.terraform-plan.outputs.configuration_version_id }}"
+            "configuration_version_id": "${{ steps.terraform-plan.outputs.configuration_version_id }}",
             "payload_info": "${{steps.terraform-plan.outputs.payload}}"
           }
           EOF
