@@ -1,11 +1,17 @@
 name: Test - Run Python Script in Docker
 
 on:
-    workflow_call:
-      inputs:
-        pr-ref:
-          required: true
-          type: string
+  workflow_dispatch:
+    inputs:
+      pr-ref:
+        required: true
+        type: string
+
+  workflow_call:
+    inputs:
+      pr-ref:
+        required: true
+        type: string
 
 jobs:
   update-pr:
