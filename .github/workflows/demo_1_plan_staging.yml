@@ -73,7 +73,7 @@ jobs:
         run: |
           cat << EOF > outputs.json
           {
-            "pr_ref": "${{ github.event.pull_request.id }}"
+            "pr_ref": "${{ github.event.pull_request.id }}",
             "status": "${{ steps.terraform-plan.outputs.status }}",
             "run_id": "${{ steps.terraform-plan.outputs.run_id }}",
             "run_status": "${{ steps.terraform-plan.outputs.run_status }}",
