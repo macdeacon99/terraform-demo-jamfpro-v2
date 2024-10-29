@@ -3,22 +3,24 @@
 import os
 import sys
 from datetime import datetime
+import json
 from github import Github
 from github.GithubException import GithubException
 
-BASE_BRANCH = "main"
-HEAD_BRANCH = os.environ.get("HEAD_BRANCH")
 TOKEN = os.environ.get("GITHUB_TOKEN")
-
-print(list(os.environ.keys()))
-
 if not TOKEN:
     raise ValueError("GITHUB_TOKEN env var is none")
 
 GH = Github(TOKEN)
+DROPFILE_FN = "outputs.json"
 
 
-def get_or_create_pr(repo_name, head_branch, base_branch="main", github_token=None):
+def open_drop_file() -> dict:
+    with open(DROPFILE_FN, "r", encoding="UTF-8") as f:
+        return json.load(f)
+
+
+def get_pr():
     """
     Get existing PR or create a new one between branches.
     
@@ -31,24 +33,15 @@ def get_or_create_pr(repo_name, head_branch, base_branch="main", github_token=No
     Returns:
         github.PullRequest.PullRequest: Pull request object
     """
+    file = open_drop_file()
+    target_pr_id = file["pr_ref"]
     try:
-        repo = GH.get_repo(repo_name)
+        repo = GH.get_repo("terraform-demo-jamfpro-v2")
+        pr = repo.get_pull(target_pr_id)
 
-        existing_prs = list(repo.get_pulls(
-            state='open',
-            head=f"{repo.owner.login}:{HEAD_BRANCH}",
-            base=BASE_BRANCH
-        ))
+        if pr:
+            return pr
 
-        if existing_prs:
-            return existing_prs[0]
-
-        return repo.create_pull(
-            title=f"Updates from {HEAD_BRANCH}",
-            body=f"Automated PR created from {HEAD_BRANCH}",
-            head=HEAD_BRANCH,
-            base=BASE_BRANCH
-        )
 
     except GithubException as e:
         print(f"GitHub API error: {e}")
@@ -56,6 +49,8 @@ def get_or_create_pr(repo_name, head_branch, base_branch="main", github_token=No
     except Exception as e:
         print(f"Unexpected error: {e}")
         raise
+
+    raise GithubException(f"no pr found at id: {target_pr_id}")
 
 
 
@@ -78,19 +73,11 @@ def update_pr_with_text(pr):
         print(f"Error adding comment: {e}")
         raise
 
+
 def main():
-    repo_name = os.getenv('GITHUB_REPOSITORY')
-    head_branch = os.getenv('GITHUB_HEAD_REF') or os.getenv('GITHUB_REF_NAME')
-    base_branch = "main"
+    pr = get_pr()
+    update_pr_with_text(pr)
 
-    try:
-        pr = get_or_create_pr(repo_name, head_branch, base_branch)
-        print(pr)
-        update_pr_with_text(pr)
-
-    except Exception as e:
-        print(f"Failed to process PR: {e}")
-        sys.exit(1)
 
 
 if __name__ == "__main__":
