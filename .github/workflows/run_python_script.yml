@@ -8,6 +8,10 @@ on:
         type: string
 
   workflow_call:
+    inputs:
+      outputs-payload:
+        required: true
+        type: string
 
 jobs:
   update-pr:
@@ -22,10 +26,16 @@ jobs:
       image: ghcr.io/${{ github.repository }}/python:latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        OUTPUTS_PAYLOAD: ${{ inputs.outputs-payload }}
       
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: output-test
 
       - name: Run Python Script
         run: python .github/scripts/update_pr.py
