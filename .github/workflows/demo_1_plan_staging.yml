@@ -85,6 +85,10 @@ jobs:
           }
           EOF
 
+      - name: Run PR Updater
+        uses: ./.github/workflows/run_python_script.yml
+        
+
       # TO DO
       # Call amended python script to pickup the file and despoit it as a comment on the PR which triggered this workflow
       # Check if the "status" == "success". If yes, exit success, else exit failure.

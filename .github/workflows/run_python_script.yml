@@ -8,10 +8,10 @@ on:
         type: string
 
   workflow_call:
-    inputs:
-      pr-ref:
-        required: true
-        type: string
+    # inputs:
+    #   pr-ref:
+    #     required: true
+    #     type: string
 
 jobs:
   update-pr:
