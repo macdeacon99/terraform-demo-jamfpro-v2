@@ -68,12 +68,18 @@ def update_pr_with_text(pr):
     comment = "You shouldn't see this"
 
     with open(DROPFILE_PATH + "/outputs.json", "r", encoding="UTF-8") as f:
-        comment = str(
-            json.load(f)
-        )
+        json_data = json.load(f)
+        
+        if "payload_info" in json_data:
+            payload_info = json.dumps(json_data["payload_info"], indent=2)
+            del json_data["payload_info"]
+
+        formatted = json.dumps(json_data, indent=2)
+        comment = formatted
 
     try:
         pr.create_issue_comment(comment)
+        pr.create_issue_comment(payload_info)
         print(f"Added comment to PR #{pr.number}")
 
     except GithubException as e:
