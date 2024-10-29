@@ -8,17 +8,17 @@ from github import Github
 from github.GithubException import GithubException
 
 TOKEN = os.environ.get("GITHUB_TOKEN")
-DROPFILE_FN = os.environ.get("ARTIFACT_PATH")
+DROPFILE_PATH = os.environ.get("ARTIFACT_PATH")
 
-if not TOKEN or not DROPFILE_FN:
-    raise ValueError(f"One or more missing env vars: TOKEN: {TOKEN}, DROPFILE_FN: {DROPFILE_FN}")
+if not TOKEN or not DROPFILE_PATH:
+    raise ValueError(f"One or more missing env vars: TOKEN: {TOKEN}, DROPFILE_FN: {DROPFILE_PATH}")
 
 GH = Github(TOKEN)
 
 
 
 def open_drop_file() -> dict:
-    with open(DROPFILE_FN, "r", encoding="UTF-8") as f:
+    with open(DROPFILE_PATH, "r", encoding="UTF-8") as f:
         return json.load(f)
 
 
@@ -67,7 +67,7 @@ def update_pr_with_text(pr):
     """
     comment = "You shouldn't see this"
 
-    with open(DROPFILE_FN, "r", encoding="UTF-8") as f:
+    with open(DROPFILE_PATH + "/outputs.json", "r", encoding="UTF-8") as f:
         comment = str(
             json.load(f)
         )
