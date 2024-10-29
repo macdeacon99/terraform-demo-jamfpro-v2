@@ -73,21 +73,32 @@ jobs:
         run: |
           cat << EOF > outputs.json
           {
-            "pr_ref": ${{ github.event.pull_request.id }}
-            "status": ${{ steps.terraform-plan.outputs.status }},
-            "run_id": ${{ steps.terraform-plan.outputs.run_id }},
-            "run_status": ${{ steps.terraform-plan.outputs.run_status }},
-            "run_message": ${{ steps.terraform-plan.outputs.run_message }},
-            "run_link": ${{ steps.terraform-plan.outputs.run_link }},
-            "plan_id": ${{ steps.terraform-plan.outputs.plan_id }},
-            "plan_status": ${{ steps.terraform-plan.outputs.plan_status }},
-            "configuration_version_id": ${{ steps.terraform-plan.outputs.configuration_version_id }}
+            "pr_ref": "${{ github.event.pull_request.number }}",
+            "status": "${{ steps.terraform-plan.outputs.status }}",
+            "run_id": "${{ steps.terraform-plan.outputs.run_id }}",
+            "run_status": "${{ steps.terraform-plan.outputs.run_status }}",
+            "run_message": "${{ steps.terraform-plan.outputs.run_message }}",
+            "run_link": "${{ steps.terraform-plan.outputs.run_link }}",
+            "plan_id": "${{ steps.terraform-plan.outputs.plan_id }}",
+            "plan_status": "${{ steps.terraform-plan.outputs.plan_status }}",
+            "configuration_version_id": "${{ steps.terraform-plan.outputs.configuration_version_id }}"
           }
           EOF
 
-      - name: Run PR Updater
-        uses: ./.github/workflows/run_python_script.yml
-        
+      - name: Upload outputs as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: output-test
+          path: outputs.json
+          retention-days: 0
+
+  update-pr:
+    name: Update PR
+    needs: terraform-upload-and-plan
+    uses: ./.github/workflows/run_python_script.yml
+    with:
+      outputs-payload: output-test
+
 
       # TO DO
       # Call amended python script to pickup the file and despoit it as a comment on the PR which triggered this workflow

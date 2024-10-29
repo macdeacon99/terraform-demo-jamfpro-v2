@@ -8,15 +8,17 @@ from github import Github
 from github.GithubException import GithubException
 
 TOKEN = os.environ.get("GITHUB_TOKEN")
-if not TOKEN:
-    raise ValueError("GITHUB_TOKEN env var is none")
+DROPFILE_PATH = os.environ.get("ARTIFACT_PATH")
+
+if not TOKEN or not DROPFILE_PATH:
+    raise ValueError(f"One or more missing env vars: TOKEN: {TOKEN}, DROPFILE_FN: {DROPFILE_PATH}")
 
 GH = Github(TOKEN)
-DROPFILE_FN = "outputs.json"
+
 
 
 def open_drop_file() -> dict:
-    with open(DROPFILE_FN, "r", encoding="UTF-8") as f:
+    with open(DROPFILE_PATH + "/outputs.json", "r", encoding="UTF-8") as f:
         return json.load(f)
 
 
@@ -35,9 +37,10 @@ def get_pr():
     """
     file = open_drop_file()
     target_pr_id = file["pr_ref"]
+    print(f"LOG: {target_pr_id}")
     try:
-        repo = GH.get_repo("terraform-demo-jamfpro-v2")
-        pr = repo.get_pull(target_pr_id)
+        repo = GH.get_repo("deploymenttheory/terraform-demo-jamfpro-v2")
+        pr = repo.get_pull(int(target_pr_id))
 
         if pr:
             return pr
@@ -62,8 +65,12 @@ def update_pr_with_text(pr):
         pr: github.PullRequest.PullRequest object
         message (str): Comment text to add
     """
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
-    comment = f"This is an automatically aded comment: {timestamp}"
+    comment = "You shouldn't see this"
+
+    with open(DROPFILE_PATH + "/outputs.json", "r", encoding="UTF-8") as f:
+        comment = str(
+            json.load(f)
+        )
 
     try:
         pr.create_issue_comment(comment)
