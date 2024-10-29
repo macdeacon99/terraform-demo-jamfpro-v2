@@ -35,6 +35,7 @@ def get_pr():
     """
     file = open_drop_file()
     target_pr_id = file["pr_ref"]
+    print(f"LOG: {target_pr_id}")
     try:
         repo = GH.get_repo("terraform-demo-jamfpro-v2")
         pr = repo.get_pull(target_pr_id)
