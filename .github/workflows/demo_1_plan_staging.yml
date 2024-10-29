@@ -44,7 +44,7 @@ jobs:
 
     steps:
       # Bring repo to runner
-      - name: Checkout repo to runner
+      - name: Checkout
         uses: actions/checkout@v4
 
         # Upload the config to TF cloud

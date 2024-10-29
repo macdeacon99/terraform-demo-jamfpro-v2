@@ -1,0 +1,74 @@
+name: Demo | Workflow 2 - Apply Targetted at Staging from Main
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target RTL Environment"
+        required: true
+        type: choice
+        options:
+          - sandbox
+          - staging
+          - production
+  
+  push:
+
+    # Only if .tf files in this directory are part of the diff.
+    paths:
+      - 'workload/terraform/jamfpro/*.tf'
+
+
+jobs:
+
+    # Check changes are coming from a feat-* or bugfix-* named branch
+  check-branch-name:
+    if: github.event_name != 'workflow_dispatch'
+    uses: ./.github/workflows/branch_name_check.yml
+    with:
+        branch-name: ${{ github.event.ref }} # // TODO make this dynamic incase it's manually triggered?
+  
+  terraform-upload-plan-apply:
+    needs: check-branch-name
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}
+    runs-on: ubuntu-latest
+    env:
+      TF_API_KEY: ${{ secrets.TF_API_KEY }}
+      TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORG }}
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+
+      - name: Upload configuration to tf cloud
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.1
+        id: upload-config
+        with:
+          token: ${{ secrets.TF_API_KEY }}
+          workspace: ${{ vars.TF_WORKSPACE }}
+          directory: "workload/terraform/jamfpro"
+
+
+      - name: Terraform plan
+        id: terraform-plan
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
+        with:
+          token: ${{ secrets.TF_API_KEY }}
+          workspace: ${{ vars.TF_WORKSPACE }}
+          configuration_version: ${{ steps.upload-config.outputs.configuration_version_id }}
+
+
+      - name: Terraform Apply
+        id: terraform-apply
+        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.3.1
+        with:
+          run: ${{ steps.terraform-plan.outputs.plan_id }}
+          
+
+    
+
+    
+
+      
