@@ -72,7 +72,6 @@ def update_pr_with_text(pr):
         
         if "payload_info" in json_data:
             plan_output = json.dumps(json_data["plan_output"], indent=2)
-            del json_data["payload_info"]
 
         formatted = json.dumps(json_data, indent=2)
         comment = formatted
