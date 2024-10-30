@@ -41,6 +41,7 @@ jobs:
           echo ${{ github.event_name }}
           echo ${{ github.event.ref }}
           echo ${{ github.event_path }}
+          echo ${{ github.event.pull_request }}
 
 
       - name: Upload configuration to tf cloud
