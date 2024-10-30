@@ -70,14 +70,12 @@ def update_pr_with_text(pr):
     with open(DROPFILE_PATH + "/outputs.json", "r", encoding="UTF-8") as f:
         json_data = json.load(f)
         
-        if "payload_info" in json_data:
-            plan_output = json.dumps(json_data["plan_output"], indent=2)
 
-        formatted = json.dumps(json_data, indent=2)
-        comment = formatted
+        plan_output = json.dumps(json_data["plan_output"], indent=2)
+        formatted_comment = json.dumps(json_data, indent=2)
 
     try:
-        pr.create_issue_comment(comment)
+        pr.create_issue_comment(formatted_comment)
         pr.create_issue_comment(plan_output)
         print(f"Added comment to PR #{pr.number}")
 
