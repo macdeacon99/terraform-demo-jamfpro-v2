@@ -35,6 +35,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: DEBUG
+        run: |
+          echo ${{ github.event }}
+          echo ${{ github.ref }}
+          echo ${{ github.event_name }}
+
 
       - name: Upload configuration to tf cloud
         uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.1
