@@ -13,3 +13,7 @@ resource "jamfpro_category" "category_3" {
 resource "jamfpro_category" "category_4" {
   name = "Sales - JL Demo V2"
 }
+
+resource "jamfpro_category" "category_5" {
+  name = "Facilities - JL Demo V2"
+}

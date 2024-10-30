@@ -39,7 +39,7 @@ jobs:
         run: |
           echo ${{ github.event }}
           echo ${{ github.ref }}
-          echo ${{ github.event_name }}
+          echo ${{ github.event_path }}
 
 
       - name: Upload configuration to tf cloud
