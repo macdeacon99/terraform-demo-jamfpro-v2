@@ -1,0 +1,56 @@
+name: Demo | Workflow 3 - Apply Targetted at Production from Main
+
+on:
+  push:
+    tags:
+      - '*'
+    paths:
+      - '**.tf'
+
+
+jobs:
+  
+  terraform-upload-plan-apply:
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'production' }}
+    runs-on: ubuntu-latest
+    env:
+      TF_API_KEY: ${{ secrets.TF_API_KEY }}
+      TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORG }}
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+
+      - name: Upload configuration to tf cloud
+        uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.1
+        id: upload-config
+        with:
+          token: ${{ secrets.TF_API_KEY }}
+          workspace: ${{ vars.TF_WORKSPACE }}
+          directory: "workload/terraform/jamfpro"
+
+
+      - name: Terraform plan
+        id: terraform-plan
+        uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
+        with:
+          token: ${{ secrets.TF_API_KEY }}
+          workspace: ${{ vars.TF_WORKSPACE }}
+          configuration_version: ${{ steps.upload-config.outputs.configuration_version_id }}
+
+
+      - name: Terraform Apply
+        id: terraform-apply
+        uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.3.1
+        with:
+          token: ${{ secrets.TF_API_KEY }}
+          run: ${{ steps.terraform-plan.outputs.run_id }}
+          
+
+    
+
+    
+
+      
