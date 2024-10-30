@@ -27,7 +27,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         OUTPUTS_PAYLOAD: ${{ inputs.outputs-payload }}
-        ARTIFACT_PATH: ${{ steps.download-artifact.outputs.download-path }}
+        
       
     steps:
       - name: Checkout repo
@@ -41,6 +41,8 @@ jobs:
 
       - name: Run pr update python utility
         run: python .github/scripts/update_pr.py
+        env:
+          ARTIFACT_PATH: ${{ steps.download-artifact.outputs.download-path }}
           
 
 
