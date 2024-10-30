@@ -32,7 +32,6 @@ jobs:
       TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORG }}
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -61,7 +60,34 @@ jobs:
         with:
           token: ${{ secrets.TF_API_KEY }}
           run: ${{ steps.terraform-plan.outputs.run_id }}
-          
+
+      - name: Save outputs to file
+        if: startsWith(github.ref, 'refs/pull/')
+        run: |
+          cat << EOF > ${{ vars.OUTPUTS_FILE_FN }}
+          {
+            "pr_ref": ${{ github.event.pull_request.number }}
+            "status": ${{ steps.terraform-apply.outputs.status }}
+          }
+          EOF
+
+      - name: Upload outputs json file as artifact
+        if: startsWith(github.ref, 'refs/pull/')
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ vars.APPLY_OUTPUT_ARTIFACT_NAME }}
+          path: ${{ vars.OUTPUTS_FILE_FN }}
+          retention-days: 0
+
+  update-pr:
+    name: Deposit plan output on trigger pr
+    if: startsWith(github.ref, 'refs/pull/')
+    needs: terraform-upload-plan-apply
+    uses: ./.github/workflows/update_pr.yml
+    with:
+      outputs-payload: ${{ vars.PLAN_OUTPUT_ARTIFACT_NAME }}
+
+
 
     
 
