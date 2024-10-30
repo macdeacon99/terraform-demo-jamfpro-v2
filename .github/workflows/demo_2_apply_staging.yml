@@ -37,7 +37,7 @@ jobs:
 
       - name: DEBUG
         run: |
-          echo ${{ github.event }}
+          echo ${{ github.event.ref }}
           echo ${{ github.ref }}
           echo ${{ github.event_path }}
 
