@@ -13,7 +13,7 @@ on:
           - production
   
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, synchronize]
     
     # Target
     branches:
@@ -78,7 +78,7 @@ jobs:
         # Deposit run info to the runner in temporary .json file
       - name: Save run info to json file
         run: |
-          cat << EOF > outputs.json
+          cat << EOF > ${{ vars.OUTPUTS_FILE_FN }}
           {
             "pr_ref": "${{ github.event.pull_request.number }}",
             "status": "${{ steps.terraform-plan.outputs.status }}",
@@ -105,7 +105,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ vars.PLAN_OUTPUT_ARTIFACT_NAME }}
-          path: outputs.json
+          path: ${{ vars.OUTPUTS_FILE_FN }}
           retention-days: 0
 
   # Update the PR with the artifact info
