@@ -9,7 +9,3 @@ resource "jamfpro_category" "category_2" {
 resource "jamfpro_category" "category_3" {
   name = "Marketing - JL Demo V2"
 }
-
-resource "jamfpro_category" "category_4" {
-  name = "Sales - JL Demo V2"
-}
