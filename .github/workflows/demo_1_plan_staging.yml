@@ -95,8 +95,8 @@ jobs:
               "change": "${{ steps.get-plan-output.outputs.change }}",
               "destory": "${{ steps.get-plan-output.outputs.destory }}",
               "plan_id": "${{ steps.get-plan-output.outputs.status }}",
-              "plan_status": "${{ steps.get-plan-output.outputs.status }}",
-              },
+              "plan_status": "${{ steps.get-plan-output.outputs.status }}"
+              }
           }
           EOF
 
