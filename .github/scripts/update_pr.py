@@ -71,7 +71,7 @@ def update_pr_with_text(pr):
         json_data = json.load(f)
         
         if "payload_info" in json_data:
-            payload_info = json.dumps(json_data["payload_info"], indent=2)
+            plan_output = json.dumps(json_data["plan_output"], indent=2)
             del json_data["payload_info"]
 
         formatted = json.dumps(json_data, indent=2)
@@ -79,7 +79,7 @@ def update_pr_with_text(pr):
 
     try:
         pr.create_issue_comment(comment)
-        # pr.create_issue_comment(payload_info) Do we need this? It's very bulky.
+        pr.create_issue_comment(plan_output)
         print(f"Added comment to PR #{pr.number}")
 
     except GithubException as e:

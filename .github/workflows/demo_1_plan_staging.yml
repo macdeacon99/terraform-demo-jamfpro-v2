@@ -67,6 +67,14 @@ jobs:
           configuration_version: ${{ steps.upload-config.outputs.configuration_version_id }}
           plan_only: true
 
+      - name:
+        id: get-plan-output
+        uses: hashicorp/tfc-workflows-github/actions/plan-output@v1.3.1
+        with:
+          token: ${{ secrets.TF_API_KEY }}
+          plan: ${{ steps.terraform-plan.outputs.plan_id }}
+
+
         # Deposit run info to the runner in temporary .json file
       - name: Save run info to json file
         run: |
@@ -81,7 +89,15 @@ jobs:
             "plan_id": "${{ steps.terraform-plan.outputs.plan_id }}",
             "plan_status": "${{ steps.terraform-plan.outputs.plan_status }}",
             "configuration_version_id": "${{ steps.terraform-plan.outputs.configuration_version_id }}",
-            "payload_info": ${{steps.terraform-plan.outputs.payload}}
+            "payload_info": ${{steps.terraform-plan.outputs.payload}},
+            "plan_output": {
+              "status": "${{ steps.get-plan-output.outputs.status }}",
+              "add": "${{ steps.get-plan-output.outputs.add }}",
+              "change": "${{ steps.get-plan-output.outputs.change }}",
+              "destory": "${{ steps.get-plan-output.outputs.destory }}",
+              "plan_id": "${{ steps.get-plan-output.outputs.status }}",
+              "plan_status": "${{ steps.get-plan-output.outputs.status }}",
+              },
           }
           EOF
 
@@ -97,6 +113,6 @@ jobs:
   update-pr:
     name: Deposit plan output on trigger pr
     needs: terraform-upload-config-and-plan
-    uses: ./.github/workflows/run_python_script.yml
+    uses: ./.github/workflows/update_pr.yml
     with:
       outputs-payload: ${{ vars.PLAN_OUTPUT_ARTIFACT_NAME }}
