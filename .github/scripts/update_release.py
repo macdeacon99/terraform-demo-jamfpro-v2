@@ -9,9 +9,9 @@ REPO_PATH = "deploymenttheory/terraform-demo-jamfpro-v2"
 
 TOKEN = os.environ.get("GITHUB_TOKEN")
 DROPFILE_PATH = os.environ.get("ARTIFACT_PATH")
-GIT_TAG = os.environ.get("RELEASE_TAG")
+GIT_TAG = os.environ.get("GIT_TAG")
 
-ENV_VARS = [TOKEN, DROPFILE_PATH]
+ENV_VARS = [TOKEN, DROPFILE_PATH, GIT_TAG]
 
 if any (i == "" for i in ENV_VARS):
     raise KeyError(f"one or more env vars are empty: {ENV_VARS}")
