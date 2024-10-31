@@ -69,8 +69,8 @@ jobs:
         run: |
           cat << EOF > ${{ vars.OUTPUTS_FILE_FN }}
           {
-            "pr_number": ${{ github.event.pull_request.number }}
-            "status": ${{ steps.terraform-apply.outputs.status }}
+            "pr_number": "${{ github.event.pull_request.number }}",
+            "status": "${{ steps.terraform-apply.outputs.status }}"
           }
           EOF
 
