@@ -47,11 +47,32 @@ jobs:
         uses: hashicorp/tfc-workflows-github/actions/apply-run@v1.3.1
         with:
           token: ${{ secrets.TF_API_KEY }}
-          run: ${{ steps.terraform-plan.outputs.run_id }}
-          
+          run: ${{ steps.terraform-plan.outputs.run_id }} 
 
-    
 
-    
-
+      - name: Save outputs to file
+        run: |
+          cat << EOF > ${{ vars.OUTPUTS_FILE_FN }}
+          {
+            "status": "${{ steps.terraform-apply.outputs.status }}"
+          }
+          EOF
+  
+  
+      - name: Upload outputs json file as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ vars.APPLY_OUTPUT_ARTIFACT_NAME }}
+          path: ${{ vars.OUTPUTS_FILE_FN }}
+          retention-days: 0
+  
+  
+  update-release:
+    name: Deposit plan output on trigger release
+    needs: terraform-upload-plan-apply
+    uses: ./.github/workflows/update_release.yml
+    with:
+      outputs-payload: ${{ vars.APPLY_OUTPUT_ARTIFACT_NAME }}
+      git-tag: ${{ github.ref_name }}
+  
       

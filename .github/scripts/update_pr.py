@@ -2,19 +2,24 @@
 
 import os
 import json
-from github import Github
+import github
 from github.GithubException import GithubException
+import github.PullRequest
 
+REPO_PATH = "deploymenttheory/terraform-demo-jamfpro-v2"
+
+# Env var pickup and validation
 TOKEN = os.environ.get("GITHUB_TOKEN")
 DROPFILE_PATH = os.environ.get("ARTIFACT_PATH")
 TYPE = os.environ.get("RUN_TYPE")
-
 ENV_VARS = [TOKEN, DROPFILE_PATH, TYPE]
 
 if any(i == "" for i in ENV_VARS):
     raise KeyError(f"one or more env vars are empty: {ENV_VARS}")
 
-GH = Github(TOKEN)
+
+# Global GH connection
+GH = github.Github(TOKEN)
 
 def open_drop_file() -> dict:
     """opens the drop file"""
@@ -24,22 +29,13 @@ def open_drop_file() -> dict:
 
 def get_pr():
     """
-    Get existing PR or create a new one between branches.
-    
-    Args:
-        repo_name (str): Repository name in format "owner/repo"
-        head_branch (str): Branch containing changes
-        base_branch (str): Target branch for PR (default: main)
-        github_token (str): GitHub access token
-    
-    Returns:
-        github.PullRequest.PullRequest: Pull request object
+    Gets PR
     """
     file = open_drop_file()
     target_pr_id = file["pr_number"]
     print(f"LOG: {target_pr_id}")
     try:
-        repo = GH.get_repo("deploymenttheory/terraform-demo-jamfpro-v2")
+        repo = GH.get_repo(REPO_PATH)
         pr = repo.get_pull(int(target_pr_id))
 
         if pr:
@@ -57,7 +53,7 @@ def get_pr():
 
 
 
-def update_pr_with_text(pr):
+def update_pr_with_text(pr: github.PullRequest):
     """
     Add a comment to the PR with specified text.
     
@@ -66,13 +62,12 @@ def update_pr_with_text(pr):
         message (str): Comment text to add
     """
     comments = []
-    with open(DROPFILE_PATH + "/outputs.json", "r", encoding="UTF-8") as f:
-        json_data = json.load(f)
+    json_data = open_drop_file()
 
-        if TYPE == "plan":
-            comments.append(json.dumps(json_data["plan_output"], indent=2))
+    if TYPE == "plan":
+        comments.append(json.dumps(json_data["plan_output"], indent=2))
 
-        comments.append(json.dumps(json_data, indent=2))
+    comments.append(json.dumps(json_data, indent=2))
 
     try:
         for c in comments:
