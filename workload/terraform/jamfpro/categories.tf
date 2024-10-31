@@ -18,10 +18,10 @@ resource "jamfpro_category" "category_5" {
   name = "Marketing - JL Demo V2 - 3"
 }
 
-resource "jamfpro_category" "category_6" {
-  count = 25
-  name = "Category Volume Test - ${count.index}"
-}
+# resource "jamfpro_category" "category_6" {
+#   count = 25
+#   name = "Category Volume Test - ${count.index}"
+# }
 
 resource "jamfpro_category" "category_7" {
   name = "Marketing - JL Demo V2 - 10"
