@@ -12,6 +12,10 @@ on:
       outputs-payload:
         required: true
         type: string
+      
+      run-type:
+        required: true
+        type: string
 
 jobs:
 
@@ -43,6 +47,7 @@ jobs:
         run: python .github/scripts/update_pr.py
         env:
           ARTIFACT_PATH: ${{ steps.download-artifact.outputs.download-path }}
+          RUN_TYPE: ${{ inputs.run-type }}
           
 
 
