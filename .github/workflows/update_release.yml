@@ -1,0 +1,47 @@
+name: Add PR Comment
+
+on:
+  workflow_call:
+    inputs:
+      outputs-payload:
+        required: true
+        type: string
+      
+      git-tag:
+        required: true
+        type: string
+
+jobs:
+
+  update-release:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: read
+      pull-requests: write
+      contents: write
+      
+    container:
+      image: ghcr.io/${{ github.repository }}/python:latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download artifact
+        id: download-artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.outputs-payload }}
+
+      - name: Run pr update python utility
+        run: python .github/scripts/update_pr.py
+        env:
+          ARTIFACT_PATH: ${{ steps.download-artifact.outputs.download-path }}
+          GIT_TAG: ${{ inputs.git-tag }}
+          
+
+
+    
+   
