@@ -14,14 +14,14 @@ on:
         type: string
 
 jobs:
+
   update-pr:
     runs-on: ubuntu-latest
-
     permissions:
       packages: read
       pull-requests: write
       contents: write
-
+      
     container:
       image: ghcr.io/${{ github.repository }}/python:latest
       env:

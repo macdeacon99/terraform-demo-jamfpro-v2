@@ -10,7 +10,6 @@ on:
 jobs:
   check-branch-name:
     runs-on: ubuntu-latest
-
     container:
       image: ghcr.io/${{ github.repository }}/python:latest
       env:
