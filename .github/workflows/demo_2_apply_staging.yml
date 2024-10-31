@@ -14,7 +14,10 @@ on:
           - staging
           - production
   
-  push:
+  pull_request:
+
+    types:
+      [closed]
 
     # if the target is main
     branches:
@@ -28,6 +31,7 @@ on:
 jobs:
 
   terraform-upload-plan-apply:
+    if: github.event.pull_request.merged == true
     environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}
     runs-on: ubuntu-latest
     env:
