@@ -93,7 +93,7 @@ jobs:
               "status": "${{ steps.get-plan-output.outputs.status }}",
               "add": "${{ steps.get-plan-output.outputs.add }}",
               "change": "${{ steps.get-plan-output.outputs.change }}",
-              "destroy": "${{ steps.get-plan-output.outputs.destory }}",
+              "destroy": "${{ steps.get-plan-output.outputs.destroy }}",
               "plan_id": "${{ steps.get-plan-output.outputs.status }}",
               "plan_status": "${{ steps.get-plan-output.outputs.status }}"
               }
