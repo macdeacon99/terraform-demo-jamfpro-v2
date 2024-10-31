@@ -117,3 +117,4 @@ jobs:
     uses: ./.github/workflows/update_pr.yml
     with:
       outputs-payload: ${{ vars.PLAN_OUTPUT_ARTIFACT_NAME }}
+      run-type: plan

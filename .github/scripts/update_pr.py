@@ -1,23 +1,23 @@
 """script to update a PR or make one, update this soon."""
 
 import os
-import sys
-from datetime import datetime
 import json
 from github import Github
 from github.GithubException import GithubException
 
 TOKEN = os.environ.get("GITHUB_TOKEN")
 DROPFILE_PATH = os.environ.get("ARTIFACT_PATH")
+TYPE = os.environ.get("RUN_TYPE")
 
-if not TOKEN or not DROPFILE_PATH:
-    raise ValueError(f"One or more missing env vars: TOKEN: {TOKEN}, DROPFILE_FN: {DROPFILE_PATH}")
+ENV_VARS = [TOKEN, DROPFILE_PATH, TYPE]
+
+if any(i == "" for i in ENV_VARS):
+    raise KeyError(f"one or more env vars are empty: {ENV_VARS}")
 
 GH = Github(TOKEN)
 
-
-
 def open_drop_file() -> dict:
+    """opens the drop file"""
     with open(DROPFILE_PATH + "/outputs.json", "r", encoding="UTF-8") as f:
         return json.load(f)
 
@@ -65,19 +65,18 @@ def update_pr_with_text(pr):
         pr: github.PullRequest.PullRequest object
         message (str): Comment text to add
     """
-    comment = "You shouldn't see this"
-
+    comments = []
     with open(DROPFILE_PATH + "/outputs.json", "r", encoding="UTF-8") as f:
         json_data = json.load(f)
-        
 
-        plan_output = json.dumps(json_data["plan_output"], indent=2)
-        formatted_comment = json.dumps(json_data, indent=2)
+        if TYPE == "plan":
+            comments.append(json.dumps(json_data["plan_output"], indent=2))
+
+        comments.append(json.dumps(json_data, indent=2))
 
     try:
-        pr.create_issue_comment(formatted_comment)
-        pr.create_issue_comment(plan_output)
-        print(f"Added comment to PR #{pr.number}")
+        for c in comments:
+            pr.create_issue_comment(c)
 
     except GithubException as e:
         print(f"Error adding comment: {e}")
@@ -85,6 +84,7 @@ def update_pr_with_text(pr):
 
 
 def main():
+    """main"""
     pr = get_pr()
     update_pr_with_text(pr)
 
