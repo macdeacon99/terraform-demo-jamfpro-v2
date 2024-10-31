@@ -10,4 +10,9 @@ resource "jamfpro_category" "category_3" {
   name = "Marketing-1 - JL cheese Demo V2"
 }
 
+resource "jamfpro_category" "category_4" {
+  name = "Marketing-1 - JL cake Demo V2"
+}
+
+
 
