@@ -1,6 +1,8 @@
 name: Demo | Workflow 2 - Apply Targetted at Staging from Main
 
 on:
+
+  # Manual trigger options - debug only
   workflow_dispatch:
     inputs:
       environment:
@@ -14,16 +16,17 @@ on:
   
   push:
 
+    # if the target is main
     branches:
       - main
 
-    # Only if .tf files in this directory are part of the diff.
+    # if .tf files in this directory are part of the diff.
     paths:
       - 'workload/terraform/jamfpro/*.tf'
 
 
 jobs:
-  
+
   terraform-upload-plan-apply:
     environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}
     runs-on: ubuntu-latest
@@ -34,14 +37,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: DEBUG
-        run: |
-          echo ${{ github.event.pusher.name }}
-          echo ${{ github.event_name }}
-          echo ${{ github.event.ref }}
-          echo ${{ github.event_path }}
-          echo ${{ github.event.pull_request }}
 
 
       - name: Upload configuration to tf cloud
@@ -69,15 +64,17 @@ jobs:
           token: ${{ secrets.TF_API_KEY }}
           run: ${{ steps.terraform-plan.outputs.run_id }}
 
+
       - name: Save outputs to file
         if: startsWith(github.ref, 'refs/pull/')
         run: |
           cat << EOF > ${{ vars.OUTPUTS_FILE_FN }}
           {
-            "pr_ref": ${{ github.event.pull_request.number }}
+            "pr_number": ${{ github.event.pull_request.number }}
             "status": ${{ steps.terraform-apply.outputs.status }}
           }
           EOF
+
 
       - name: Upload outputs json file as artifact
         if: startsWith(github.ref, 'refs/pull/')
@@ -86,6 +83,7 @@ jobs:
           name: ${{ vars.APPLY_OUTPUT_ARTIFACT_NAME }}
           path: ${{ vars.OUTPUTS_FILE_FN }}
           retention-days: 0
+
 
   update-pr:
     name: Deposit plan output on trigger pr

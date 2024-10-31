@@ -36,7 +36,7 @@ def get_pr():
         github.PullRequest.PullRequest: Pull request object
     """
     file = open_drop_file()
-    target_pr_id = file["pr_ref"]
+    target_pr_id = file["pr_number"]
     print(f"LOG: {target_pr_id}")
     try:
         repo = GH.get_repo("deploymenttheory/terraform-demo-jamfpro-v2")

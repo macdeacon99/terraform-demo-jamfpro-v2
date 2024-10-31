@@ -1,6 +1,7 @@
 name: Demo | Workflow 1 - Plan Targetted at Staging
 
 on:
+  # Manual trigger options - debug only.
   workflow_dispatch:
     inputs:
       environment:
@@ -13,27 +14,26 @@ on:
           - production
   
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize] # Synchronize is when a PR is updated by new commits.
     
-    # Target
+    # if Target branch is Main
     branches:
       - main
 
-    # Only if .tf files in this directory are part of the diff.
+    # if .tf files in this directory are part of the diff.
     paths:
       - 'workload/terraform/jamfpro/*.tf'
 
 
 jobs:
 
-  # Check changes are coming from a feat-* or bugfix-* named branch
   check-branch-name:
     if: github.event_name != 'workflow_dispatch'
     uses: ./.github/workflows/branch_name_check.yml
     with:
       branch-name: ${{ github.event.pull_request.head.ref }} # // TODO make this dynamic incase it's manually triggered?
   
-  # Terraform Plan
+
   terraform-upload-config-and-plan:
     needs: check-branch-name
     environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}
@@ -43,11 +43,11 @@ jobs:
       TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORG }}
 
     steps:
-      # Bring repo to runner
+
       - name: Checkout
         uses: actions/checkout@v4
 
-        # Upload the config to TF cloud
+
       - name: Upload configuration to tf cloud
         uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.3.1
         id: upload-config
@@ -57,7 +57,7 @@ jobs:
           directory: "workload/terraform/jamfpro"
           speculative: true
 
-        # Run speculative plan using hashi create-run 
+
       - name: Terraform plan
         id: terraform-plan
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.3.1
@@ -67,6 +67,7 @@ jobs:
           configuration_version: ${{ steps.upload-config.outputs.configuration_version_id }}
           plan_only: true
 
+
       - name: Get plan output
         id: get-plan-output
         uses: hashicorp/tfc-workflows-github/actions/plan-output@v1.3.1
@@ -75,12 +76,11 @@ jobs:
           plan: ${{ steps.terraform-plan.outputs.plan_id }}
 
 
-        # Deposit run info to the runner in temporary .json file
       - name: Save run info to json file
         run: |
           cat << EOF > ${{ vars.OUTPUTS_FILE_FN }}
           {
-            "pr_ref": "${{ github.event.pull_request.number }}",
+            "pr_number": "${{ github.event.pull_request.number }}",
             "status": "${{ steps.terraform-plan.outputs.status }}",
             "run_id": "${{ steps.terraform-plan.outputs.run_id }}",
             "run_status": "${{ steps.terraform-plan.outputs.run_status }}",
@@ -93,14 +93,15 @@ jobs:
               "status": "${{ steps.get-plan-output.outputs.status }}",
               "add": "${{ steps.get-plan-output.outputs.add }}",
               "change": "${{ steps.get-plan-output.outputs.change }}",
-              "destory": "${{ steps.get-plan-output.outputs.destory }}",
+              "destroy": "${{ steps.get-plan-output.outputs.destory }}",
               "plan_id": "${{ steps.get-plan-output.outputs.status }}",
               "plan_status": "${{ steps.get-plan-output.outputs.status }}"
               }
           }
           EOF
 
-        # Upload output as artifact
+
+
       - name: Upload plan output json artifact
         uses: actions/upload-artifact@v4
         with:
@@ -108,7 +109,8 @@ jobs:
           path: ${{ vars.OUTPUTS_FILE_FN }}
           retention-days: 0
 
-  # Update the PR with the artifact info
+
+
   update-pr:
     name: Deposit plan output on trigger pr
     needs: terraform-upload-config-and-plan
