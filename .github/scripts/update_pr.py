@@ -72,7 +72,7 @@ def update_pr_with_text(pr):
         if TYPE == "plan":
             comments.append(json.dumps(json_data["plan_output"], indent=2))
 
-        comments.append(formatted_comment = json.dumps(json_data, indent=2))
+        comments.append(json.dumps(json_data, indent=2))
 
     try:
         for c in comments:
