@@ -14,11 +14,3 @@ resource "jamfpro_category" "category_4" {
   name = "Marketing - JL Demo V2 - 2"
 }
 
-
-resource "jamfpro_category" "category_5" {
-  name = "Marketing - JL Demo V2 - 22"
-}
-
-resource "jamfpro_category" "category_6" {
-  name = "Marketing - JL Demo V2 - 23"
-}

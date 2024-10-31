@@ -36,7 +36,7 @@ jobs:
           name: ${{ inputs.outputs-payload }}
 
       - name: Run pr update python utility
-        run: python .github/scripts/update_pr.py
+        run: python .github/scripts/update_release.py
         env:
           ARTIFACT_PATH: ${{ steps.download-artifact.outputs.download-path }}
           GIT_TAG: ${{ inputs.git-tag }}
