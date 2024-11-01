@@ -2,14 +2,14 @@ name: Demo | Workflow 3 - Apply Targetted at Production from Main
 run-name: Tag triggered apply to production
 
 on:
-  # push:
-  #   tags:
-  #     - '*'
-  #   paths:
-  #     - '**.tf'
+  push:
+    tags:
+      - '*'
+    paths:
+      - '**.tf'
 
-  release:
-    types: [created, published, released]
+  # release:
+  #   types: [created, published, released]
 
 
 jobs:
