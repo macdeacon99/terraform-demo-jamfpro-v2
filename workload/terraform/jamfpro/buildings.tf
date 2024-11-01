@@ -17,7 +17,7 @@ resource "jamfpro_building" "jamfpro_building_004" {
 }
 
 resource "jamfpro_building" "jamfpro_building_005" {
-  name            = "tf-demo-v2-Joseph's House"
+  name            = "tf-demo-v2-Josephs new House"
 }
 
 resource "jamfpro_building" "jamfpro_building_006" {
