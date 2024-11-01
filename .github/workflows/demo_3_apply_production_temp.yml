@@ -9,7 +9,7 @@ on:
   #     - '**.tf'
 
   release:
-    types: [created]
+    types: [created, published, released]
 
 
 jobs:
