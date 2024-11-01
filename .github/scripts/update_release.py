@@ -39,7 +39,7 @@ def get_update_release():
         raise
 
     file = open_drop_file()
-    message = f"{release.body or "no body"}\nApply Result:\n{json.dumps(file, indent=2)}"
+    message = f"{release.body}\nApply Result:\n{json.dumps(file, indent=2)}"
     release.update_release(
         name=release.tag_name,
         message=message

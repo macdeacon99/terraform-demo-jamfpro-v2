@@ -1,4 +1,4 @@
-name: Add PR Comment
+name: Add Realease Comment
 
 on:
   workflow_call:
