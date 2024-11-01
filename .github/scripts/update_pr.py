@@ -26,6 +26,9 @@ def open_drop_file() -> dict:
     with open(DROPFILE_PATH + "/outputs.json", "r", encoding="UTF-8") as f:
         return json.load(f)
 
+def wrap_json_markdown(json_string):
+    return f"```json\n{json_string}\n```"
+
 
 def get_pr():
     """
@@ -65,9 +68,9 @@ def update_pr_with_text(pr: github.PullRequest):
     json_data = open_drop_file()
 
     if TYPE == "plan":
-        comments.append(json.dumps(json_data["plan_output"], indent=2))
+        comments.append(wrap_json_markdown(json.dumps(json_data["plan_output"], indent=2)))
 
-    comments.append(json.dumps(json_data, indent=2))
+    comments.append(wrap_json_markdown(json.dumps(json_data, indent=2)))
 
     try:
         for c in comments:

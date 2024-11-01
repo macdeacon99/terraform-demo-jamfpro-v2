@@ -24,6 +24,10 @@ def open_drop_file() -> dict:
     with open(DROPFILE_PATH + "/outputs.json", "r", encoding="UTF-8") as f:
         return json.load(f)
     
+    
+def wrap_json_markdown(json_string):
+    return f"```json\n{json_string}\n```"
+    
 
 def get_update_release():
     """gets a tag"""
