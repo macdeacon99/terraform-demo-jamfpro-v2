@@ -1,4 +1,5 @@
 name: Demo | Workflow 1 - Plan Targetted at Staging
+run-name: Speculative Plan at Staging
 
 on:
   # Manual trigger options - debug only.

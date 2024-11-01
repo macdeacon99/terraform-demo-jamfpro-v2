@@ -1,4 +1,5 @@
 name: Demo | Workflow 2 - Apply Targetted at Staging from Main
+run-name: Merge Triggered Apply of Main to Staging
 
 on:
 
