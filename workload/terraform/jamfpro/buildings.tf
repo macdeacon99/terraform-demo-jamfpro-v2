@@ -13,7 +13,7 @@ resource "jamfpro_building" "jamfpro_building_003" {
 
 
 resource "jamfpro_building" "jamfpro_building_004" {
-  name            = "tf-demo-v2-Dafydd's House"
+  name            = "tf-demo-v2-Someone else's house House"
 }
 
 resource "jamfpro_building" "jamfpro_building_005" {
