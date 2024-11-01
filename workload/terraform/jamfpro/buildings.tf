@@ -22,3 +22,7 @@ resource "jamfpro_building" "jamfpro_building_005" {
 resource "jamfpro_building" "jamfpro_building_006" {
   name            = "tf-demo-v2-SIX"
 }
+
+resource "jamfpro_building" "jamfpro_building_007" {
+  name            = "tf-demo-v2-SEVEN"
+}
