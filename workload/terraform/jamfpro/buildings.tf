@@ -19,3 +19,7 @@ resource "jamfpro_building" "jamfpro_building_006" {
 resource "jamfpro_building" "jamfpro_building_007" {
   name            = "tf-demo-v2-Joseph's First House"
 }
+
+resource "jamfpro_building" "jamfpro_building_009" {
+  name            = "tf-demo-v2-Joseph's Third House"
+}
