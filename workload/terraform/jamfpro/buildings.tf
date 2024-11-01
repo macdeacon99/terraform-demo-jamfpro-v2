@@ -16,9 +16,6 @@ resource "jamfpro_building" "jamfpro_building_004" {
   name            = "tf-demo-v2-Someone else's house House"
 }
 
-resource "jamfpro_building" "jamfpro_building_005" {
-  name            = "tf-demo-v2-Josephs new House"
-}
 
 resource "jamfpro_building" "jamfpro_building_006" {
   name            = "tf-demo-v2-Joseph's second House"
