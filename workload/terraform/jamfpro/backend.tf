@@ -11,6 +11,7 @@ terraform {
     organization = "jl-test-org"
 
     workspaces {
+      # this can be here without affecting other runs
       name = "terraform-demo-jamfpro-v2-sandbox"
     }
   }
