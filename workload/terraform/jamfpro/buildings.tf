@@ -30,3 +30,7 @@ resource "jamfpro_building" "jamfpro_building_007" {
 resource "jamfpro_building" "jamfpro_building_008" {
   name            = "tf-demo-v2-EIGHT"
 }
+
+resource "jamfpro_building" "jamfpro_building_009" {
+  name            = "tf-demo-v2-NINE"
+}
