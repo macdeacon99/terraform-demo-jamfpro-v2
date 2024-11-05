@@ -1,4 +1,5 @@
 name: "Check branch name is compliant with conventional commits"
+run-name: "Branch Name Complicity Check"
 
 on:
     workflow_call:
