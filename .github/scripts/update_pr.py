@@ -26,8 +26,6 @@ import github.PullRequest
 from .shared import open_drop_file, wrap_json_markdown
 
 REPO_PATH = "deploymenttheory/terraform-demo-jamfpro-v2"
-
-# Env var pickup and validation
 TOKEN = os.environ.get("GITHUB_TOKEN")
 DROPFILE_PATH = os.environ.get("ARTIFACT_PATH")
 TYPE = os.environ.get("RUN_TYPE")
