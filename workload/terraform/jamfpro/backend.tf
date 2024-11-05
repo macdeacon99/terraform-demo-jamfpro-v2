@@ -11,7 +11,7 @@ terraform {
     organization = "jl-test-org"
 
     workspaces {
-      # this can be here without affecting other runs
+      # This is only relevant for CLI calls and is ignored by API calls via pipelines, therefore it can be safely left here.
       name = "terraform-demo-jamfpro-v2-sandbox"
     }
   }
