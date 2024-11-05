@@ -56,5 +56,3 @@ Each environment requires:
    - Set `APPLY_OUTPUT_ARTIFACT_NAME`
    - Set `OUTPUTS_FILE_FN`
    - Set `TF_CLOUD_ORG`
-
-Would you like me to add any additional sections or details to this guide?
