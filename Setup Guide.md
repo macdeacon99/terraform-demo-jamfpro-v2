@@ -1,54 +1,51 @@
-I'll help format this into a clear Markdown guide for forking the repository.
-
-# Repository Configuration Guide
+# Demo Configuration Guide
 
 ## Required Secrets
 
 ### GitHub Personal Access Token
 - **Secret Name:** `PAT_TOKEN`
-- **Purpose:** Required for Release processes with separate identity from pipeline executor
+- **Description:** Required for Release Please to function correctly. It must use a separate identity to the GH actions.
 - **Permissions:** Must have repository access
 
 ### Terraform Cloud API Key
 - **Secret Name:** `TF_API_KEY`
-- **Purpose:** Required for API calls to Terraform Cloud Workspaces
+- **Description:** Required for API calls to Terraform Cloud Workspaces for starting runs and retrieving data.
 - **Type:** User API Key
 
+
 ## GitHub Environments
+Two environments must be configured:
 
-Three environments must be configured:
-
-1. `sandbox`
-2. `staging`
-3. `production`
+1. `staging`
+2. `production`
 
 ### Environment Variables
 Each environment requires:
 - **Variable Name:** `TF_WORKSPACE`
-- **Purpose:** Maps to corresponding Terraform Cloud workspace
+- **Description:** Maps to corresponding Terraform Cloud workspace
+
 
 ## Repository Variables
 
 ### Artifact Configuration
 - **Variable Name:** `APPLY_OUTPUT_ARTIFACT_NAME`
-- **Purpose:** Used for artifact name sharing
+- **Description:** Used for artifact name sharing. This can be anything but it should be clear!
 
 ### Output File Configuration
 - **Variable Name:** `OUTPUTS_FILE_FN`
-- **Purpose:** Standardizes the name of output files
+- **Description:** Standardizes the name of output file. This can also be anything at this stage.
 
 ### Terraform Organization
 - **Variable Name:** `TF_CLOUD_ORG`
-- **Purpose:** Specifies your Terraform Cloud organization name
+- **Description:** Specifies your Terraform Cloud organization name
+
 
 ## Setup Steps
-
 1. Fork the repository
 2. Configure the required secrets:
    - Add `PAT_TOKEN`
    - Add `TF_API_KEY`
-3. Create the three environments:
-   - sandbox
+3. Create the Two environments:
    - staging
    - production
 4. Add the `TF_WORKSPACE` variable to each environment
