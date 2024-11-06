@@ -1,5 +1,19 @@
 # Demo Configuration Guide
 
+## Prerequisites
+You must have:
+1. A Jamf Pro API Integration with permissions in each of your route to live instances
+2. A Hashicorp Cloud Platform Terraform Org set up (it's free)
+3. A Terraform Project set up.
+4. 3 workspaces set up in that org and project:
+   - Sandbox
+   - Staging
+   - Production
+
+5. TF variables and secrets set up. You can set up a "Variable Set" for items shared between workspaces (like provider config)
+   - Varibles must match the names seen in workload/terraform/jamfpro/backend.tf
+   
+
 ## Required Secrets
 
 ### GitHub Personal Access Token
