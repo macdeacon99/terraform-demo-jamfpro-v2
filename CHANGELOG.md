@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0](https://github.com/deploymenttheory/terraform-demo-jamfpro-v2/compare/v0.7.0...v0.8.0) (2024-11-06)
+
+
+### Features
+
+* first draft of workflow diagram ([33dd502](https://github.com/deploymenttheory/terraform-demo-jamfpro-v2/commit/33dd50248e0499a87b08832c3244ef016b72caa1))
+
+
+### Bug Fixes
+
+* forced tag checkout to checkout the triggering version ([5cac223](https://github.com/deploymenttheory/terraform-demo-jamfpro-v2/commit/5cac2236df1ca1f4ecf39f553190cf0fd44775f4))
+* simplified allowed branch prefixes ([14a7f88](https://github.com/deploymenttheory/terraform-demo-jamfpro-v2/commit/14a7f8878a5666a3dc6d5796e50d2024e6f48d77))
+
 ## [0.7.0](https://github.com/deploymenttheory/terraform-demo-jamfpro-v2/compare/v0.6.0...v0.7.0) (2024-11-04)
 
 
