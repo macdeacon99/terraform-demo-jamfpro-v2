@@ -15,7 +15,7 @@ on:
 jobs:
   
   terraform-upload-plan-apply:
-    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'production' }}
+    environment: 'production'
     runs-on: ubuntu-latest
     env:
       TF_API_KEY: ${{ secrets.TF_API_KEY }}
@@ -58,7 +58,7 @@ jobs:
 
       - name: Save outputs to file
         run: |
-          cat << EOF > ${{ vars.OUTPUTS_FILE_FN }}
+          cat << EOF > ${{ vars.ARTIFACT_FN }}
           {
             "status": "${{ steps.terraform-apply.outputs.status }}"
           }
@@ -69,7 +69,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ vars.APPLY_OUTPUT_ARTIFACT_NAME }}
-          path: ${{ vars.OUTPUTS_FILE_FN }}
+          path: ${{ vars.ARTIFACT_FN }}
           retention-days: 0
   
   
@@ -78,7 +78,7 @@ jobs:
     needs: terraform-upload-plan-apply
     uses: ./.github/workflows/update_release.yml
     with:
-      outputs-payload: ${{ vars.APPLY_OUTPUT_ARTIFACT_NAME }}
+      artifact-name: ${{ vars.APPLY_OUTPUT_ARTIFACT_NAME }}
       git-tag: ${{ github.ref_name }}
   
       
