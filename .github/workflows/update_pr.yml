@@ -6,11 +6,7 @@ on:
       artifact-name:
         required: true
         type: string
-
-      artifact-fn:
-        required: true
-        type: string
-
+        
 jobs:
 
   update-pr:

@@ -23,7 +23,7 @@ import json
 import github
 from github.GithubException import GithubException
 import github.PullRequest
-from .shared import open_drop_file, wrap_json_markdown
+from .shared import open_artifact, wrap_json_markdown
 
 REPO = os.environ.get("REPO")
 TOKEN = os.environ.get("GITHUB_TOKEN")
@@ -60,7 +60,7 @@ def get_pr():
         - Requires outputs.json file with 'pr_number' field
     """
 
-    file = open_drop_file(ARTIFACT_PATH)
+    file = open_artifact(ARTIFACT_PATH)
     target_pr_id = file["pr_number"]
     print(f"LOG: {target_pr_id}")
     try:
@@ -99,7 +99,7 @@ def update_pr_with_text(pr: github.PullRequest):
 
     Dependencies:
         - Requires TYPE constant to be defined
-        - Requires open_drop_file() and wrap_json_markdown() functions
+        - Requires open_artifact() and wrap_json_markdown() functions
         - Requires outputs.json file with appropriate structure
 
     Example:
@@ -108,7 +108,7 @@ def update_pr_with_text(pr: github.PullRequest):
     """
 
 
-    comments = wrap_json_markdown(open_drop_file(ARTIFACT_PATH))
+    comments = wrap_json_markdown(open_artifact(ARTIFACT_PATH))
 
     try:
         for c in comments:

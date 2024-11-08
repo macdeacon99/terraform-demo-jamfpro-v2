@@ -29,7 +29,7 @@ import os
 import json
 import github
 from github.GithubException import GithubException
-from .shared import open_drop_file
+from .shared import open_artifact
 
 REPO_PATH = "deploymenttheory/terraform-demo-jamfpro-v2"
 TOKEN = os.environ.get("GITHUB_TOKEN")
@@ -81,7 +81,7 @@ def get_update_release():
         print(f"Unexpected error: {e}")
         raise
 
-    file = open_drop_file(DROPFILE_PATH)
+    file = open_artifact(DROPFILE_PATH)
     message = f"{release.body}\nApply Result: {file["status"]}"
     release.update_release(
         name=release.tag_name,
