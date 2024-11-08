@@ -3,7 +3,7 @@
 import json
 
 
-def open_artifact(path: str, formatted_string: bool) -> dict:
+def open_artifact(path: str, formatted_string: bool = False) -> dict:
     """
     Opens and reads the outputs.json file created by a workflow and returns its contents as a dictionary.
 
