@@ -1,4 +1,6 @@
-# Demo Configuration Guide
+# Guide for Forking this Repo
+
+This guide is for individuals with experience of the technologies in this demo. If you don't have that, don't worry! Please review the [Getting Started Guide](./docs/getting-started.md)
 
 ## Prerequisites
 You must have:
