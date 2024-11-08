@@ -158,7 +158,7 @@ Give this token a lifespan you are happy with and save it for later in use with 
 
 3. **Configure Github Secrets**: Set up the following secrets in your GitHub repository settings:
 
-Refer to the [Forking Guide](/Forking%20Guide.md)
+Refer to the [Forking Guide](/forking-guide.md)
 
 4. **Configure Terraform Cloud Secrets**:
 

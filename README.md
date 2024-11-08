@@ -5,7 +5,7 @@ This repository contains an **example** automated workflow for using Terraform t
 
 ## Usage Guide
 
-If you'd like to fork the repo and use this setup against environments of your own, please refer to the [Forking Guide](./Forking%20Guide.md) for var definitions if you've used some of these tools before and [Getting Started Guide](./docs/getting-started.md) if you need additional guidance.
+If you'd like to fork the repo and use this setup against environments of your own, please refer to the [Forking Guide](./forking-guide.md) for var definitions if you've used some of these tools before and [Getting Started Guide](./docs/getting-started.md) if you need additional guidance.
 
 ## Repo Structure
 
