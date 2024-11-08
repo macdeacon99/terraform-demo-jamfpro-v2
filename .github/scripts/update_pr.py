@@ -23,7 +23,7 @@ import github
 from github.GithubException import GithubException
 import github.PullRequest
 print(os.getcwd())
-from ..github.scripts.shared import *
+from .github.scripts.shared import *
 
 REPO = os.environ.get("REPO")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
