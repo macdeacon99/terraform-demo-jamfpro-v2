@@ -9,7 +9,7 @@ Dependencies:
     - PyGithub
     - Valid GitHub authentication credentials
     - outputs.json file with required fields (pr_number, plan_output if applicable)
-    - Defined constants: DROPFILE_PATH, REPO_PATH, TYPE
+    - Defined constants: DATA_FILE_FP, REPO_PATH, TYPE
 
 Usage:
     Run the script directly to process the outputs.json file and update
@@ -25,11 +25,11 @@ from github.GithubException import GithubException
 import github.PullRequest
 from .shared import open_drop_file, wrap_json_markdown
 
-REPO_PATH = "deploymenttheory/terraform-demo-jamfpro-v2"
+REPO = os.environ.get("REPO")
 TOKEN = os.environ.get("GITHUB_TOKEN")
-DROPFILE_PATH = os.environ.get("ARTIFACT_PATH")
-TYPE = os.environ.get("RUN_TYPE")
-ENV_VARS = [TOKEN, DROPFILE_PATH, TYPE]
+ARTIFACT_PATH = os.environ.get("ARTIFACT_PATH")
+print(ARTIFACT_PATH)
+ENV_VARS = [REPO, TOKEN, ARTIFACT_PATH]
 
 if any(i == "" for i in ENV_VARS):
     raise KeyError(f"one or more env vars are empty: {ENV_VARS}")
@@ -60,11 +60,11 @@ def get_pr():
         - Requires outputs.json file with 'pr_number' field
     """
 
-    file = open_drop_file(DROPFILE_PATH)
+    file = open_drop_file(ARTIFACT_PATH)
     target_pr_id = file["pr_number"]
     print(f"LOG: {target_pr_id}")
     try:
-        repo = GH.get_repo(REPO_PATH)
+        repo = GH.get_repo(REPO)
         pr = repo.get_pull(int(target_pr_id))
 
         if pr:
@@ -109,7 +109,7 @@ def update_pr_with_text(pr: github.PullRequest):
 
 
     comments = []
-    json_data = open_drop_file(DROPFILE_PATH)
+    json_data = open_drop_file(DATA_FILE_FP)
 
     if TYPE == "plan":
         comments.append(wrap_json_markdown(json.dumps(json_data["plan_output"], indent=2)))

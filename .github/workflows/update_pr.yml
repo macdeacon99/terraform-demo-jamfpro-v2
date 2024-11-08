@@ -1,19 +1,9 @@
 name: Add PR Comment
 
 on:
-  workflow_dispatch:
-    inputs:
-      pr-ref:
-        required: true
-        type: string
-
   workflow_call:
     inputs:
-      outputs-payload:
-        required: true
-        type: string
-      
-      run-type:
+      artifact-name:
         required: true
         type: string
 
@@ -30,7 +20,6 @@ jobs:
       image: ghcr.io/${{ github.repository }}/python:latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-        OUTPUTS_PAYLOAD: ${{ inputs.outputs-payload }}
         
       
     steps:
@@ -41,15 +30,10 @@ jobs:
         id: download-artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.outputs-payload }}
+          name: ${{ inputs.artifact-name }}
 
       - name: Run pr update python utility
         run: python .github/scripts/update_pr.py
         env:
+          REPO: ${{ github.repository }}
           ARTIFACT_PATH: ${{ steps.download-artifact.outputs.download-path }}
-          RUN_TYPE: ${{ inputs.run-type }}
-          
-
-
-    
-   
