@@ -7,7 +7,7 @@ This repository contains an **example** automated workflow for using Terraform t
 
 For a comprehensive setup guide, see our [Getting Started Guide](./docs/getting-started.md).
 
-If you have used these technologies before and would just like the technical requirements and variable/secret definition please see the [Forking Guide](./docs/forking-guide.md).
+If you have used these technologies before and would just like the technical requirements and variable/secret definitions, please see the [Forking Guide](./docs/forking-guide.md).
 
 ## Repo Structure
 
