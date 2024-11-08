@@ -99,10 +99,7 @@ jobs:
               "plan_id": "${{ steps.get-plan-output.outputs.status }}",
               "plan_status": "${{ steps.get-plan-output.outputs.status }}"
             }
-          }
-          EOF
-
-
+          } EOF
 
       - name: Upload plan output json artifact
         uses: actions/upload-artifact@v4
