@@ -1,4 +1,4 @@
-name: Add Realease Comment
+name: Add Release Comment
 
 on:
   workflow_call:
