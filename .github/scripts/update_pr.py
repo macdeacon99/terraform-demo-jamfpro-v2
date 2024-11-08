@@ -19,11 +19,12 @@ Author: Unknown
 """
 
 import os
+import sys
 import github
 from github.GithubException import GithubException
 import github.PullRequest
-print(os.getcwd())
-from .github.scripts.shared import *
+sys.path.append(".github/scripts")
+from shared import *
 
 REPO = os.environ.get("REPO")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
