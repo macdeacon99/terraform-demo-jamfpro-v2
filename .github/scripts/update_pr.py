@@ -67,8 +67,7 @@ def get_pr():
         - Requires outputs.json file with 'pr_number' field
     """
 
-    file = open_artifact(ARTIFACT_PATH)
-    target_pr_id = file["pr_number"]
+    target_pr_id = TARGET_PR_NUMBER
     print(f"LOG: {target_pr_id}")
     try:
         repo = GH.get_repo(REPO)
