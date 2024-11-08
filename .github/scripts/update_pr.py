@@ -117,7 +117,7 @@ def update_pr_with_text(pr: github.PullRequest):
     comments = wrap_json_markdown(open_artifact(ARTIFACT_PATH))
 
     try:
-        pr.create_issue_comment(c)
+        pr.create_issue_comment(comments)
 
     except GithubException as e:
         print(f"Error adding comment: {e}")
