@@ -2,21 +2,9 @@ name: Demo | Workflow 2 - Apply Targetted at Staging from Main
 run-name: Merge Triggered Apply of Main to Staging
 
 on:
-
-  # Manual trigger options - debug only
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "Target RTL Environment"
-        required: true
-        type: choice
-        options:
-          - sandbox
-          - staging
-          - production
-  
   pull_request:
 
+    # When a PR is closed
     types:
       [closed]
 
@@ -32,8 +20,11 @@ on:
 jobs:
 
   terraform-upload-plan-apply:
+
+    # If the closure type was merged (not rejected)
     if: github.event.pull_request.merged == true
-    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}
+
+    environment: 'staging'
     runs-on: ubuntu-latest
     env:
       TF_API_KEY: ${{ secrets.TF_API_KEY }}
@@ -72,9 +63,8 @@ jobs:
 
       - name: Save outputs to file
         run: |
-          cat << EOF > ${{ vars.OUTPUTS_FILE_FN }}
+          cat << EOF > ${{ vars.ARTIFACT_FN }}
           {
-            "pr_number": "${{ github.event.pull_request.number }}",
             "status": "${{ steps.terraform-apply.outputs.status }}"
           }
           EOF
@@ -84,7 +74,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ vars.APPLY_OUTPUT_ARTIFACT_NAME }}
-          path: ${{ vars.OUTPUTS_FILE_FN }}
+          path: ${{ vars.ARTIFACT_FN }}
           retention-days: 0
 
 
@@ -93,8 +83,8 @@ jobs:
     needs: terraform-upload-plan-apply
     uses: ./.github/workflows/update_pr.yml
     with:
-      outputs-payload: ${{ vars.APPLY_OUTPUT_ARTIFACT_NAME }}
-      run-type: "apply"
+      artifact-name: ${{ vars.APPLY_OUTPUT_ARTIFACT_NAME }}
+      target-pr-number: ${{ github.event.pull_request.number }}
 
 
 
