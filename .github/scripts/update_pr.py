@@ -22,7 +22,8 @@ import os
 import github
 from github.GithubException import GithubException
 import github.PullRequest
-from .shared import open_artifact, wrap_json_markdown
+print(os.getcwd())
+from .shared import *
 
 REPO = os.environ.get("REPO")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
