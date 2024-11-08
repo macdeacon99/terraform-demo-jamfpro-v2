@@ -108,13 +108,7 @@ def update_pr_with_text(pr: github.PullRequest):
     """
 
 
-    comments = []
-    json_data = open_drop_file(DATA_FILE_FP)
-
-    if TYPE == "plan":
-        comments.append(wrap_json_markdown(json.dumps(json_data["plan_output"], indent=2)))
-
-    comments.append(wrap_json_markdown(json.dumps(json_data, indent=2)))
+    comments = wrap_json_markdown(open_drop_file(ARTIFACT_PATH))
 
     try:
         for c in comments:
