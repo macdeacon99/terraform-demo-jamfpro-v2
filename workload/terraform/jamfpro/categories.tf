@@ -15,6 +15,11 @@ resource "jamfpro_category" "category_4" {
 }
 
 
+resource "jamfpro_category" "category_5" {
+  name = "Marketing-1 - JL orange juice Demo V2"
+}
 
 
-
+resource "jamfpro_category" "category_6" {
+  name = "Marketing-1 - JL apple juice Demo V2"
+}

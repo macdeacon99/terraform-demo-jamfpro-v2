@@ -19,10 +19,12 @@ Author: Unknown
 """
 
 import os
+import sys
 import github
 from github.GithubException import GithubException
 import github.PullRequest
-from .shared import open_artifact, wrap_json_markdown
+sys.path.append(".github/scripts")
+from shared import *
 
 REPO = os.environ.get("REPO")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
@@ -65,8 +67,7 @@ def get_pr():
         - Requires outputs.json file with 'pr_number' field
     """
 
-    file = open_artifact(ARTIFACT_PATH)
-    target_pr_id = file["pr_number"]
+    target_pr_id = TARGET_PR_NUMBER
     print(f"LOG: {target_pr_id}")
     try:
         repo = GH.get_repo(REPO)
@@ -113,10 +114,10 @@ def update_pr_with_text(pr: github.PullRequest):
     """
 
 
-    comments = wrap_json_markdown(open_artifact(ARTIFACT_PATH))
+    comments = wrap_json_markdown(open_artifact(ARTIFACT_PATH, formatted_string=True))
 
     try:
-        pr.create_issue_comment(c)
+        pr.create_issue_comment(comments)
 
     except GithubException as e:
         print(f"Error adding comment: {e}")

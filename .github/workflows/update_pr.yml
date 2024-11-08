@@ -41,4 +41,4 @@ jobs:
         env:
           REPO: ${{ github.repository }}
           ARTIFACT_PATH: ${{ steps.download-artifact.outputs.download-path }}/${{vars.ARTIFACT_FN}}
-          TARGET_PR_NUMBER: ${{ inputs.target-pr-number }}
+          TARGET_PR_NUMBER: ${{ inputs.target-pr-number}}

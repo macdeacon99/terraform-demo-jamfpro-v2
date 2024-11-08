@@ -3,7 +3,7 @@
 import json
 
 
-def open_artifact(path: str) -> dict:
+def open_artifact(path: str, formatted_string: bool) -> dict:
     """
     Opens and reads the outputs.json file created by a workflow and returns its contents as a dictionary.
 
@@ -15,7 +15,10 @@ def open_artifact(path: str) -> dict:
         JSONDecodeError: If the file contains invalid JSON
     """
 
-    with open(path + "/outputs.json", "r", encoding="UTF-8") as f:
+    with open(path, "r", encoding="UTF-8") as f:
+        if formatted_string:
+            return json.dumps(json.load(f), indent=2)
+        
         return json.load(f)
     
 

@@ -79,7 +79,7 @@ jobs:
 
       - name: Save run info to json file
         run: |
-          cat << EOF > ${{ vars.OUTPUTS_FILE_FN }}
+          cat << EOF > ${{ vars.ARTIFACT_FN }}
           {
             "plan_response": {
               "status": "${{ steps.terraform-plan.outputs.status }}",
@@ -99,10 +99,8 @@ jobs:
               "plan_id": "${{ steps.get-plan-output.outputs.status }}",
               "plan_status": "${{ steps.get-plan-output.outputs.status }}"
             }
-          }
+          } 
           EOF
-
-
 
       - name: Upload plan output json artifact
         uses: actions/upload-artifact@v4
