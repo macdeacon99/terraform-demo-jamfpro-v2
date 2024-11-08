@@ -118,3 +118,4 @@ jobs:
     uses: ./.github/workflows/update_pr.yml
     with:
       artifact-name: ${{ vars.PLAN_OUTPUT_ARTIFACT_NAME }}
+      target-pr-number: ${{ github.event.pull_request.number }}

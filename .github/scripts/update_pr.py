@@ -19,24 +19,29 @@ Author: Unknown
 """
 
 import os
-import json
 import github
 from github.GithubException import GithubException
 import github.PullRequest
 from .shared import open_artifact, wrap_json_markdown
 
 REPO = os.environ.get("REPO")
-TOKEN = os.environ.get("GITHUB_TOKEN")
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 ARTIFACT_PATH = os.environ.get("ARTIFACT_PATH")
-print(ARTIFACT_PATH)
-ENV_VARS = [REPO, TOKEN, ARTIFACT_PATH]
+TARGET_PR_NUMBER = os.environ.get("TARGET_PR_NUMBER")
 
-if any(i == "" for i in ENV_VARS):
+ENV_VARS = [
+    REPO,
+    GITHUB_TOKEN,
+    ARTIFACT_PATH,
+    TARGET_PR_NUMBER
+]
+
+if any(i == "" or i == None for i in ENV_VARS):
     raise KeyError(f"one or more env vars are empty: {ENV_VARS}")
 
 
 # Global GH connection
-GH = github.Github(TOKEN)
+GH = github.Github(GITHUB_TOKEN)
 
 
 def get_pr():
@@ -111,8 +116,7 @@ def update_pr_with_text(pr: github.PullRequest):
     comments = wrap_json_markdown(open_artifact(ARTIFACT_PATH))
 
     try:
-        for c in comments:
-            pr.create_issue_comment(c)
+        pr.create_issue_comment(c)
 
     except GithubException as e:
         print(f"Error adding comment: {e}")
@@ -138,8 +142,7 @@ def main():
         - Requires outputs.json file with required fields
     """
 
-    pr = get_pr()
-    update_pr_with_text(pr)
+    update_pr_with_text(get_pr())
 
 
 
