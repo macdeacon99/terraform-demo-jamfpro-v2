@@ -24,7 +24,7 @@ import github
 from github.GithubException import GithubException
 import github.PullRequest
 sys.path.append(".github/scripts")
-from shared import *
+from shared import wrap_json_markdown, open_artifact
 
 REPO = os.environ.get("REPO")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")

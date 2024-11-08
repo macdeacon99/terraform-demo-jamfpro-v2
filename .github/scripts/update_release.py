@@ -26,10 +26,11 @@ Example:
 """
 
 import os
-import json
+import sys
 import github
 from github.GithubException import GithubException
-from .shared import open_artifact
+sys.path.append(".github/scripts")
+from shared import open_artifact
 
 REPO = os.environ.get("REPO")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
