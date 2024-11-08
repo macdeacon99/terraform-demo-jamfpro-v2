@@ -10,21 +10,21 @@ You must have:
    - Staging
    - Production
 
-5. TF variables and secrets set up. You can set up a "Variable Set" for items shared between workspaces (like provider config)
+5. TF variables and secrets set up. You can set up a "Variable Set" for items shared between workspaces (like provider config).
    - Varibles must match the names seen in workload/terraform/jamfpro/backend.tf
+   - See [Getting Started](./docs/getting-started.md) for more info.
    
 
 ## Required Secrets
 
 ### GitHub Personal Access Token
 - **Secret Name:** `PAT_TOKEN`
-- **Description:** Required for Release Please to function correctly. It must use a separate identity to the GH actions.
+- **Description:** Required for Release Please to function correctly as it must use a separate identity to the GH actions. [GH Docs Page](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 - **Permissions:** Must have repository access
 
-### Terraform Cloud API Key
+### Terraform Cloud User API Key
 - **Secret Name:** `TF_API_KEY`
-- **Description:** Required for API calls to Terraform Cloud Workspaces for starting runs and retrieving data.
-- **Type:** User API Key
+- **Description:** Required for API calls to Terraform Cloud Workspaces for starting runs and retrieving data. See [Getting Started](./docs/getting-started.md) for more info.
 
 
 ## GitHub Environments
@@ -46,8 +46,8 @@ Each environment requires:
 - **Description:** Used for artifact name sharing. This can be anything but it should be clear!
 
 ### Output File Configuration
-- **Variable Name:** `OUTPUTS_FILE_FN`
-- **Description:** Standardizes the name of output file. This can also be anything at this stage.
+- **Variable Name:** `ARTIFACT_FN`
+- **Description:** Standardizes the name of output file. This can also be anything at this stage but must contain the .json extension"
 
 ### Terraform Organization
 - **Variable Name:** `TF_CLOUD_ORG`
@@ -65,5 +65,6 @@ Each environment requires:
 4. Add the `TF_WORKSPACE` variable to each environment
 5. Configure repository variables:
    - Set `APPLY_OUTPUT_ARTIFACT_NAME`
-   - Set `OUTPUTS_FILE_FN`
+   - Set `ARTIFACT_FN`
    - Set `TF_CLOUD_ORG`
+6. Amend the [Terraform configuration block](./workload/terraform/jamfpro/backend.tf) to align with your values.
