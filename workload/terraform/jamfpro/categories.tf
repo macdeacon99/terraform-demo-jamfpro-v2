@@ -23,3 +23,9 @@ resource "jamfpro_category" "category_5" {
 resource "jamfpro_category" "category_6" {
   name = "Marketing-1 - JL apple juice Demo V2"
 }
+
+resource "jamfpro_category" "category_7" {
+  count = 25
+  name = "Small Volume Test - ${count.index}"
+}
+
