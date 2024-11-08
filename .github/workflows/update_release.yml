@@ -3,7 +3,7 @@ name: Add Realease Comment
 on:
   workflow_call:
     inputs:
-      outputs-payload:
+      artifact-name:
         required: true
         type: string
       
@@ -33,12 +33,13 @@ jobs:
         id: download-artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.outputs-payload }}
+          name: ${{ inputs.artifact-name }}
 
       - name: Run pr update python utility
         run: python .github/scripts/update_release.py
         env:
-          ARTIFACT_PATH: ${{ steps.download-artifact.outputs.download-path }}
+          REPO: ${{ github.repository }}
+          ARTIFACT_PATH: ${{ steps.download-artifact.outputs.download-path }}/${{ vars.ARTIFACT_FN }}
           GIT_TAG: ${{ inputs.git-tag }}
           
 

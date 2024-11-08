@@ -10,9 +10,9 @@ Dependencies:
     - Valid GitHub authentication credentials
     - outputs.json file containing status information
     - Defined constants:
-        - REPO_PATH: Path to GitHub repository
+        - REPO: Path to GitHub repository
         - GIT_TAG: Release tag to update
-        - DROPFILE_PATH: Location of outputs.json file
+        - ARTIFACT_PATH: Location of outputs.json file
 
 Usage:
     Run the script to fetch the specified release and append the
@@ -31,20 +31,26 @@ import github
 from github.GithubException import GithubException
 from .shared import open_artifact
 
-REPO_PATH = "deploymenttheory/terraform-demo-jamfpro-v2"
-TOKEN = os.environ.get("GITHUB_TOKEN")
-DROPFILE_PATH = os.environ.get("ARTIFACT_PATH")
+REPO = os.environ.get("REPO")
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
+ARTIFACT_PATH = os.environ.get("ARTIFACT_PATH")
 GIT_TAG = os.environ.get("GIT_TAG")
-ENV_VARS = [TOKEN, DROPFILE_PATH, GIT_TAG]
+
+ENV_VARS = [
+    REPO, 
+    GITHUB_TOKEN, 
+    ARTIFACT_PATH, 
+    GIT_TAG
+]
 
 if any (i == "" for i in ENV_VARS):
     raise KeyError(f"one or more env vars are empty: {ENV_VARS}")
 
 
-GH = github.Github(TOKEN)
+GH = github.Github(GITHUB_TOKEN)
 
 
-def get_update_release():
+def get_and_update_release():
     """
     Retrieves a GitHub release by tag and updates its description with apply status.
 
@@ -52,9 +58,9 @@ def get_update_release():
     status from outputs.json to the existing release description.
 
     Dependencies:
-        - Requires GIT_TAG and REPO_PATH constants to be defined
+        - Requires GIT_TAG and REPO constants to be defined
         - Requires GitHub authentication
-        - Requires outputs.json file with 'status' field at DROPFILE_PATH
+        - Requires outputs.json file with 'status' field at ARTIFACT_PATH
 
     Raises:
         GithubException: If the release cannot be found or updated
@@ -71,7 +77,7 @@ def get_update_release():
     """
 
     try:
-        repo = GH.get_repo(REPO_PATH)
+        repo = GH.get_repo(REPO)
         release = repo.get_release(GIT_TAG)
 
     except GithubException as e:
@@ -81,7 +87,7 @@ def get_update_release():
         print(f"Unexpected error: {e}")
         raise
 
-    file = open_artifact(DROPFILE_PATH)
+    file = open_artifact(ARTIFACT_PATH)
     message = f"{release.body}\nApply Result: {file["status"]}"
     release.update_release(
         name=release.tag_name,
@@ -90,7 +96,7 @@ def get_update_release():
 
 
 def main():
-    get_update_release()
+    get_and_update_release()
 
 
 if __name__ == "__main__":
