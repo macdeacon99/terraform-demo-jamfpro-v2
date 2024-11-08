@@ -81,15 +81,16 @@ jobs:
         run: |
           cat << EOF > ${{ vars.OUTPUTS_FILE_FN }}
           {
-            "pr_number": "${{ github.event.pull_request.number }}",
-            "status": "${{ steps.terraform-plan.outputs.status }}",
-            "run_id": "${{ steps.terraform-plan.outputs.run_id }}",
-            "run_status": "${{ steps.terraform-plan.outputs.run_status }}",
-            "run_message": "${{ steps.terraform-plan.outputs.run_message }}",
-            "run_link": "${{ steps.terraform-plan.outputs.run_link }}",
-            "plan_id": "${{ steps.terraform-plan.outputs.plan_id }}",
-            "plan_status": "${{ steps.terraform-plan.outputs.plan_status }}",
-            "configuration_version_id": "${{ steps.terraform-plan.outputs.configuration_version_id }}",
+            "plan_response": {
+              "status": "${{ steps.terraform-plan.outputs.status }}",
+              "run_id": "${{ steps.terraform-plan.outputs.run_id }}",
+              "run_status": "${{ steps.terraform-plan.outputs.run_status }}",
+              "run_message": "${{ steps.terraform-plan.outputs.run_message }}",
+              "run_link": "${{ steps.terraform-plan.outputs.run_link }}",
+              "plan_id": "${{ steps.terraform-plan.outputs.plan_id }}",
+              "plan_status": "${{ steps.terraform-plan.outputs.plan_status }}",
+              "configuration_version_id": "${{ steps.terraform-plan.outputs.configuration_version_id }}"
+            },
             "plan_output": {
               "status": "${{ steps.get-plan-output.outputs.status }}",
               "add": "${{ steps.get-plan-output.outputs.add }}",
@@ -97,7 +98,7 @@ jobs:
               "destroy": "${{ steps.get-plan-output.outputs.destroy }}",
               "plan_id": "${{ steps.get-plan-output.outputs.status }}",
               "plan_status": "${{ steps.get-plan-output.outputs.status }}"
-              }
+            }
           }
           EOF
 
@@ -109,8 +110,7 @@ jobs:
           name: ${{ vars.PLAN_OUTPUT_ARTIFACT_NAME }}
           path: ${{ vars.ARTIFACT_FN }}
           retention-days: 0
-
-
+        
 
   update-pr:
     name: Deposit plan output on trigger pr
