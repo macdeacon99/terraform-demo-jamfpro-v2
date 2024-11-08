@@ -114,7 +114,7 @@ def update_pr_with_text(pr: github.PullRequest):
     """
 
 
-    comments = wrap_json_markdown(open_artifact(ARTIFACT_PATH))
+    comments = wrap_json_markdown(open_artifact(ARTIFACT_PATH, formatted_string=True))
 
     try:
         pr.create_issue_comment(comments)
