@@ -117,15 +117,20 @@ def update_pr_with_text(pr: PullRequest):
     """
     artifact = open_artifact(ARTIFACT_PATH)
 
-    comment_lines = [
-        f"**Plan Status:** {artifact["plan_response"]["status"]}",
-        f"**Add:** {artifact["plan_output"]["add"]}",
-        f"**Change:** {artifact["plan_output"]["change"]}",
-        f"**Destroy:** {artifact["plan_output"]["destroy"]}",
-        f"[View Run on Terraform Cloud]({artifact["plan_response"]["run_link"]})"
-    ]
+    # Temporary workaround - "status" indicates it's an apply, anything else is a plan. I know it's bad but it's a demo! 
+    if "status" in artifact:
+        comment = f"Apply Status: {artifact["status"]}"
 
-    comment = "\n".join(comment_lines)
+    else:
+        comment_lines = [
+            f"**Plan Status:** {artifact["plan_response"]["status"]}",
+            f"**Add:** {artifact["plan_output"]["add"]}",
+            f"**Change:** {artifact["plan_output"]["change"]}",
+            f"**Destroy:** {artifact["plan_output"]["destroy"]}",
+            f"[View Run on Terraform Cloud]({artifact["plan_response"]["run_link"]})"
+        ]
+
+        comment = "\n".join(comment_lines)
 
     try:
         pr.create_issue_comment(comment)
