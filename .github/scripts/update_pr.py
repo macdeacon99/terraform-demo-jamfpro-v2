@@ -21,6 +21,7 @@ Author: Unknown
 import os
 import sys
 import github
+import json
 from github.GithubException import GithubException
 from github.PullRequest import PullRequest
 sys.path.append(".github/scripts")
@@ -75,6 +76,7 @@ def get_pr():
 
         if pr:
             return pr
+    
 
 
     except GithubException as e:
@@ -114,17 +116,20 @@ def update_pr_with_text(pr: PullRequest):
         >>> update_pr_with_text(pr)  # Adds formatted JSON comment(s) to PR
     """
     artifact = open_artifact(ARTIFACT_PATH)
-    
-    comments = f"""
-    Run Status: {artifact["plan_response"]["status"]}
-    [link]({artifact["plan_response"]["run_link"]})
-    \n
-    """
 
-    comments += wrap_json_markdown(artifact)
+    comment_lines = [
+        f"**Plan Status:** {artifact["plan_response"]["status"]}",
+        f"**Add:** {artifact["plan_output"]["add"]}",
+        f"**Change:** {artifact["plan_output"]["change"]}",
+        f"**Destroy:** {artifact["plan_output"]["destroy"]}",
+        f"[View Run on Terraform Cloud]({artifact["plan_response"]["run_link"]})"
+    ]
+
+    comment = "\n".join(comment_lines)
 
     try:
-        pr.create_issue_comment(comments)
+        pr.create_issue_comment(comment)
+
 
     except GithubException as e:
         print(f"Error adding comment: {e}")
