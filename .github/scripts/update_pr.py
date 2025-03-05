@@ -118,6 +118,7 @@ def update_pr_with_text(pr: PullRequest):
     artifact = open_artifact(ARTIFACT_PATH)
 
     # Temporary workaround - "status" indicates it's an apply, anything else is a plan. I know it's bad but it's a demo! 
+    print("DEBUG: ", artifact)
     if "status" in artifact:
         comment = f"Apply Status: {artifact["status"]}"
 
