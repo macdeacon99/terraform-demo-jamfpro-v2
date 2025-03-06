@@ -13,7 +13,14 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/create-github-app-token@v1
+      id: app-token
+      with:
+        app-id: ${{ vars.RP_APP_ID }}
+        private-key: ${{ secrets.RP_APP_PRIVATE_KEY }}
+        installation-id: ${{ secrets.RP_APP_INSTALLATION_ID }}
+
     - uses: googleapis/release-please-action@v4
       with:
-        token: ${{ secrets.RP_ORG_TOKEN }}
+        token: ${{ steps.app-token.outputs.token }}
         release-type: simple
