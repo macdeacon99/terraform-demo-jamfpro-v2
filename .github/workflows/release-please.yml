@@ -18,7 +18,7 @@ jobs:
       with:
         app-id: ${{ vars.RP_APP_ID }}
         private-key: ${{ secrets.RP_APP_PRIVATE_KEY }}
-        installation-id: ${{ secrets.RP_APP_INSTALLATION_ID }}
+        # installation-id: ${{ secrets.RP_APP_INSTALLATION_ID }}
 
     - uses: googleapis/release-please-action@v4
       with:
