@@ -32,14 +32,14 @@ variable "buildings" {
       zip_postal_code = "SW11 8AL"
       country         = "United Kingdom"
     },
-    # "us_embassy" = {
-    #   street_address1 = "33 Nine Elms Ln - apple"
-    #   street_address2 = "Nine Elms"
-    #   city            = "London"
-    #   state_province  = "London"
-    #   zip_postal_code = "SW11 7US"
-    #   country         = "United Kingdom"
-    # },
+    "us_embassy" = {
+      street_address1 = "33 Nine Elms Ln - apple"
+      street_address2 = "Nine Elms"
+      city            = "London"
+      state_province  = "London"
+      zip_postal_code = "SW11 7US"
+      country         = "United Kingdom"
+    },
     "Cheese" = {
       street_address1 = "Cake"
       street_address2 = "Sausage"
