@@ -12,7 +12,7 @@ if not BRANCH_NAME:
 
 with open("./.github/config/allowed_branch_prefixes.txt", "r", encoding="UTF-8") as f:
     for l in f.read().split("\n"):
-        if l in BRANCH_NAME:
+        if BRANCH_NAME.startswith(l):
             print(f"Branch name is valid: prefix:{l}, name: {BRANCH_NAME}")
             exit()
 
