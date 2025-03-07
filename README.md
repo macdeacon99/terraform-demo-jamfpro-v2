@@ -1,5 +1,5 @@
 
-> [!DISCLAIMER]
+> [!WARNING]
 > This is a demo. Not everything is 100% perfect or representitve of how you should actually run a workflow like this. It serves as an exmaple of how you could implement a soluion like this.
 > There will be false positives, inefficiencies and lots of room for improvement - please do not copy and paste this demo into production use! 
 
