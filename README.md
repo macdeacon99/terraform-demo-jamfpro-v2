@@ -1,3 +1,8 @@
+
+> [!DISCLAIMER]
+> This is a demo. Not everything is 100% perfect or representitve of how you should actually run a workflow like this. It serves as an exmaple of how you could implement a soluion like this.
+> There will be false positives, inefficiencies and lots of room for improvement - please do not copy and paste this demo into production use! 
+
 # Terraform Demo for Jamf Pro V2
 
 This repository contains an **example** automated workflow for using Terraform to manage Jamf Pro configuration across multiple environments in a Route To Live (RTL) arrangement. We leverage the [Jamf Pro Terraform Provider](https://github.com/deploymenttheory/terraform-provider-jamfpro) Hashicorp Terraform Cloud Workspaces, Github Actions and  [Google Release please](https://github.com/googleapis/release-please) to automate the planning, application and release process of change - ensuring only tested, versioned and approved code reaches production in the same state it was tested in.
