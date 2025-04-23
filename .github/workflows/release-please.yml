@@ -16,9 +16,7 @@ jobs:
     - uses: actions/create-github-app-token@v1
       id: app-token
       with:
-        app-id: ${{ vars.RP_APP_ID }}
-        private-key: ${{ secrets.RP_APP_PRIVATE_KEY }}
-        # installation-id: ${{ secrets.RP_APP_INSTALLATION_ID }}
+        token: ${{ secrets.PAT_TOKEN }}
 
     - uses: googleapis/release-please-action@v4
       with:
