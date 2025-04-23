@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/create-github-app-token@v1
-      id: app-token
       with:
         token: ${{ secrets.PAT_TOKEN }}
 
