@@ -1,5 +1,5 @@
 resource "jamfpro_policy" "jamfpro_policy_demo" {
-  name                          = "tf-demo-policy-script-citi"
+  name                          = "gd-tf-demo-policy-script-citi"
   enabled                       = false
   trigger_checkin               = false
   trigger_enrollment_complete   = false
@@ -24,7 +24,7 @@ resource "jamfpro_policy" "jamfpro_policy_demo" {
   scope {
     all_computers = false
     all_jss_users = false
-    building_ids  = [jamfpro_building.building["citi_hq"].id]
+    building_ids  = [jamfpro_building.building["gd-citi_hq"].id]
 
   }
 
