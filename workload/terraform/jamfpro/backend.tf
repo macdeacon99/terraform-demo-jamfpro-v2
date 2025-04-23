@@ -8,11 +8,11 @@ terraform {
   }
 
   cloud {
-    organization = "jl-test-org"
+    organization = "MacDeacon99"
 
     workspaces {
       # This is only relevant for CLI calls and is ignored by API calls via pipelines, therefore it can be safely left here.
-      name = "terraform-demo-jamfpro-v2-sandbox"
+      name = "sandbox"
     }
   }
 }
@@ -30,15 +30,10 @@ provider "jamfpro" {
   mandatory_request_delay_milliseconds = var.jamfpro_mandatory_request_delay_milliseconds
 }
 
+// Specific
 variable "jamfpro_instance_fqdn" {
   description = "The Jamf Pro FQDN (fully qualified domain name). Example: https://mycompany.jamfcloud.com"
   sensitive   = true
-}
-
-variable "jamfpro_auth_method" {
-  description = "Auth method chosen for Jamf. Options are 'basic' or 'oauth2'."
-  sensitive   = true
-  type        = string
 }
 
 variable "jamfpro_client_id" {
@@ -53,17 +48,13 @@ variable "jamfpro_client_secret" {
   type        = string
 }
 
-variable "enable_client_sdk_logs" {
-  description = "Enable client SDK logs."
-  type        = bool
-  default     = false
+// Generics
+variable "jamfpro_auth_method" {
+  description = "Auth method chosen for Jamf. Options are 'basic' or 'oauth2'."
+  sensitive   = true
+  type        = string
 }
 
-variable "client_sdk_log_export_path" {
-  description = "Specify the path to export http client logs to."
-  type        = string
-  default     = ""
-}
 
 variable "jamfpro_hide_sensitive_data" {
   description = "Define whether sensitive fields should be hidden in logs."
@@ -71,6 +62,19 @@ variable "jamfpro_hide_sensitive_data" {
   default     = true
 }
 
+variable "jamfpro_token_refresh_buffer_period_seconds" {
+  description = "The buffer period in seconds for token refresh."
+  type        = number
+  default     = 300
+}
+
+variable "jamfpro_mandatory_request_delay_milliseconds" {
+  description = "A mandatory delay after each request before returning to reduce high volume of requests in a short time."
+  type        = number
+  default     = 100
+}
+
+// Not in cloud
 variable "jamfpro_custom_cookies" {
   description = "Custom cookies for the HTTP client."
   type = list(object({
@@ -86,14 +90,14 @@ variable "jamfpro_load_balancer_lock" {
   default     = true
 }
 
-variable "jamfpro_token_refresh_buffer_period_seconds" {
-  description = "The buffer period in seconds for token refresh."
-  type        = number
-  default     = 300
+variable "enable_client_sdk_logs" {
+  description = "Enable client SDK logs."
+  type        = bool
+  default     = false
 }
 
-variable "jamfpro_mandatory_request_delay_milliseconds" {
-  description = "A mandatory delay after each request before returning to reduce high volume of requests in a short time."
-  type        = number
-  default     = 100
+variable "client_sdk_log_export_path" {
+  description = "Specify the path to export http client logs to."
+  type        = string
+  default     = ""
 }

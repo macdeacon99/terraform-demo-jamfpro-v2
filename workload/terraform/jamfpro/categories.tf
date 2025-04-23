@@ -1,15 +1,15 @@
 resource "jamfpro_category" "category" {
   for_each = toset([
-    "HR",
-    "Engineering",
-    "Finance",
-    "Marketing",
-    "Legal",
-    "Operations",
-    "Facilities",
-    "Security",
-    "Aerospace",
-    "Nannas house"
+    "gd-HR",
+    "gd-Engineering",
+    "gd-Finance",
+    "gd-Marketing",
+    "gd-Legal",
+    "gd-Operations",
+    "gd-Facilities",
+    "gd-Security",
+    "gd-Aerospace",
+    "gd-Nannas house"
   ])
 
   name = each.key

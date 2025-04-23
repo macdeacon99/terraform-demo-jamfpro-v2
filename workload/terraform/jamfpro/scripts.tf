@@ -1,5 +1,5 @@
 resource "jamfpro_script" "jamfpro_script_2" {
-  name            = "tf-demo-v2-script-2"
+  name            = "gd-tf-demo-v2-script-2"
   script_contents = "echo 'hello world'"
   os_requirements = "13"
   priority        = "BEFORE"
@@ -10,7 +10,7 @@ resource "jamfpro_script" "jamfpro_script_2" {
 
 
 resource "jamfpro_script" "jamfpro_script_4" {
-  name            = "tf-demo-v2-script-4"
+  name            = "gd-tf-demo-v2-script-4"
   script_contents = "echo 'hello world'"
   os_requirements = "13"
   priority        = "BEFORE"

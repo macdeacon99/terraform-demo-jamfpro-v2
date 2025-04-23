@@ -1,14 +1,14 @@
 variable "buildings" {
   default = {
-    "london_eye" = {
-      street_address1 = "Riverside Building"
+    "gd-london_eye" = {
+      street_address1 = "new changeRiverside Building"
       street_address2 = "County Hall"
       city            = "London"
       state_province  = "London"
       zip_postal_code = "SE1 7PB"
       country         = "United Kingdom"
     },
-    "apple_park" = {
+    "gd-apple_park" = {
       street_address1 = "The McIntosh Tree"
       street_address2 = "One Apple Park Way"
       city            = "Cupertino"
@@ -16,7 +16,7 @@ variable "buildings" {
       zip_postal_code = "95014"
       country         = "The United States of America"
     },
-    "jamf_hq" = {
+    "gd-jamf_hq" = {
       street_address1 = "100 Washington Ave S Cheese"
       street_address2 = "Suite 1100"
       city            = "Minneapolis"
@@ -24,7 +24,7 @@ variable "buildings" {
       zip_postal_code = "55401"
       country         = "The United States of America"
     },
-    "apple_battersea" = {
+    "gd-apple_battersea" = {
       street_address1 = "Ground Floor, Turbine Hall A, Circus Rd W, Nine Elms"
       street_address2 = "Suite 1100"
       city            = "London"
@@ -32,7 +32,7 @@ variable "buildings" {
       zip_postal_code = "SW11 8AL"
       country         = "United Kingdom"
     },
-    "us_embassy" = {
+    "gd-us_embassy" = {
       street_address1 = "33 Nine Elms Ln - apple"
       street_address2 = "Nine Elms"
       city            = "London"
@@ -40,7 +40,7 @@ variable "buildings" {
       zip_postal_code = "SW11 7US"
       country         = "United Kingdom"
     },
-    "citi_hq" = {
+    "gd-citi_hq" = {
       street_address1 = "33 Canada Square"
       street_address2 = "Canary Wharf"
       city            = "London"
