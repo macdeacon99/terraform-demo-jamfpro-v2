@@ -5,7 +5,7 @@ variable "buildings" {
       street_address2 = "County Hall"
       city            = "London"
       state_province  = "London"
-      zip_postal_code = "SE1 7PB"
+      zip_postal_code = "ML6 8AN"
       country         = "United Kingdom"
     },
     "gd-apple_park" = {
