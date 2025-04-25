@@ -1,7 +1,7 @@
 variable "buildings" {
   default = {
     "gd-london_eye" = {
-      street_address1 = "new changeRiverside Building"
+      street_address1 = "Riverside Building"
       street_address2 = "County Hall"
       city            = "London"
       state_province  = "London"
