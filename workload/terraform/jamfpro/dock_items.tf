@@ -14,3 +14,10 @@ resource "jamfpro_dock_item" "jamfpro_dock_item_003" {
   type = "Folder" // App / File / Folder
   path = "~/Downloads"
 }
+
+// Folder Dock Item Example
+resource "jamfpro_dock_item" "jamfpro_dock_item_004" {
+  name = "gd-tf-example-dockItem-app-vscode"
+  type = "App" // App / File / Folder
+  path = "/Applications/Visual Studio Code.app/"
+}
