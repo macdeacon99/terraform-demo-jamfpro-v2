@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.5](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/compare/v4.0.4...v4.0.5) (2025-04-28)
+
+
+### Bug Fixes
+
+* testing commit ([#11](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/issues/11)) ([bc5edb2](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/commit/bc5edb2425461d3dab44d59164ac3fe56bd7391b))
+
+## [4.0.4](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/compare/v4.0.3...v4.0.4) (2025-04-28)
+
+
+### Bug Fixes
+
+* removing address ([#9](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/issues/9)) ([1c79b3e](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/commit/1c79b3ec8717d4d4a025a95d9bf1e1a228e3c185))
+
+## [4.0.3](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/compare/v4.0.2...v4.0.3) (2025-04-28)
+
+
+### Bug Fixes
+
+* fixing addresses ([#7](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/issues/7)) ([4cc3e0d](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/commit/4cc3e0da3cda95f826b1b32b1b45823dbd305ed0))
+
+## [4.0.2](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/compare/v4.0.1...v4.0.2) (2025-04-25)
+
+
+### Bug Fixes
+
+* change address name ([#5](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/issues/5)) ([822bdc3](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/commit/822bdc3e5ef6909fd03a278e6ac5e33d4324f2a0))
+
+## [4.0.1](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/compare/v4.0.0...v4.0.1) (2025-04-25)
+
+
+### Bug Fixes
+
+* postcode ([#3](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/issues/3)) ([6341646](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/commit/6341646978f88ac6996417a0f7ab5bf8aa1d8fb4))
+
 ## [4.0.0](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/compare/v3.14.0...v4.0.0) (2025-04-23)
 
 
