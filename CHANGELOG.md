@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.4](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/compare/v4.0.3...v4.0.4) (2025-04-28)
+
+
+### Bug Fixes
+
+* removing address ([#9](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/issues/9)) ([1c79b3e](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/commit/1c79b3ec8717d4d4a025a95d9bf1e1a228e3c185))
+
 ## [4.0.3](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/compare/v4.0.2...v4.0.3) (2025-04-28)
 
 
