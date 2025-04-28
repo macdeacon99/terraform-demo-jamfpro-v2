@@ -48,12 +48,12 @@ variable "buildings" {
       zip_postal_code = "E14 5LB"
       country         = "United Kingdom"
     }
-    "gd-home" = {
-      street_address1 = "71 Linden Avenue"
-      street_address2 = ""
-      city            = "Stirling City"
-      state_province  = "Stirling"
-      zip_postal_code = "FK7 7PS"
+    "gd-citi_hq2" = {
+      street_address1 = "333 Canada Square"
+      street_address2 = "Canary Wharf"
+      city            = "London"
+      state_province  = "London"
+      zip_postal_code = "E14 5LB"
       country         = "United Kingdom"
     }
   }
