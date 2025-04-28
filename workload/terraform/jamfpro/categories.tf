@@ -9,7 +9,8 @@ resource "jamfpro_category" "category" {
     "gd-Facilities",
     "gd-Security",
     "gd-Aerospace",
-    "gd-Nannas house"
+    "gd-Nannas house",
+    "gd-Adming Tools"
   ])
 
   name = each.key

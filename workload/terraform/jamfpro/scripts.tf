@@ -18,3 +18,13 @@ resource "jamfpro_script" "jamfpro_script_4" {
   notes           = "Jamf Pro script parameters: 4"
   parameter4      = "/"
 }
+
+resource "jamfpro_script" "jamfpro_script_5" {
+  name            = "gd-tf-demo-v2-script-5"
+  script_contents = "echo $4 >> newfile.txt"
+  os_requirements = "13"
+  priority        = "BEFORE"
+  info            = "Adds target user or group to specified group membership, or removes said membership."
+  notes           = "Jamf Pro script parameters: 4"
+  parameter4      = "input"
+}
