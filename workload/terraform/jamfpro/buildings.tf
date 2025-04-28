@@ -48,6 +48,14 @@ variable "buildings" {
       zip_postal_code = "E14 5LB"
       country         = "United Kingdom"
     }
+    "gd-citi_hq2" = {
+      street_address1 = "333 Canada Square"
+      street_address2 = "Canary Wharf"
+      city            = "London"
+      state_province  = "London"
+      zip_postal_code = "E14 5LB"
+      country         = "United Kingdom"
+    }
   }
 }
 
