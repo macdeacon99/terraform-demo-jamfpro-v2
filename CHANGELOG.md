@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * playing around ([#14](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/issues/14)) ([61d7c50](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/commit/61d7c5002b98ce57a4b468146383e559848ffca2))
 
+
 ## [4.0.5](https://github.com/macdeacon99/terraform-demo-jamfpro-v2/compare/v4.0.4...v4.0.5) (2025-04-28)
 
 
