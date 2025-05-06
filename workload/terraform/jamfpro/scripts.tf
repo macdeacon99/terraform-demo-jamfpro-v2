@@ -28,3 +28,14 @@ resource "jamfpro_script" "jamfpro_script_5" {
   notes           = "Jamf Pro script parameters: 4"
   parameter4      = "input"
 }
+
+// Script example an uploaded script taken from a file path with parameters
+resource "jamfpro_script" "scripts_6" {
+  name            = "tf-example-script-manage-jamf"
+  script_contents = file("files/manageJamf.zsh")
+  category_id     = -1
+  os_requirements = "13"
+  priority        = "BEFORE"
+  info            = "Adds target user or group to run jamf manage command"
+  notes           = "Jamf Pro script parameters 4 -> 7"
+}
