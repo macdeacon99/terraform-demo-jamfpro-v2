@@ -37,8 +37,6 @@ resource "jamfpro_account" "jamf_pro_account_003" {
   access_level          = "Site Access" // Full Access / Site Access / Group Access
   privilege_set         = "Custom"
 
-  site_id = 1200
-
   jss_objects_privileges = [
     "Create Advanced Computer Searches",
     "Read Advanced Computer Searches",
