@@ -7,7 +7,7 @@ resource "jamfpro_site" "jamf_pro_site_2" {
 }
 
 resource "jamfpro_site" "jamf_pro_site_3" {
-  name = "gd-training-manchester"
+  name = "gd-training-manchester1"
 }
 
 resource "jamfpro_site" "jamf_pro_site_4" {
