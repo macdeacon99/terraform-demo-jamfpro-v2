@@ -12,3 +12,7 @@
 
 #   # assigned_computer_ids = [23, 936, 997]
 # }
+  # Optional: Specify computers for static groups
+
+  # assigned_computer_ids = [23, 936, 997]
+}
