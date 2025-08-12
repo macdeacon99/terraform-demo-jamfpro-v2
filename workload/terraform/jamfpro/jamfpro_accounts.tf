@@ -60,7 +60,7 @@
 #   ]
 
 # }
-=======
+
 // example of account with admin privileges and full access
 resource "jamfpro_account" "jamf_pro_account_001" {
   name                  = "gd-tf-localtest-account-custom-privileges-full-access"
@@ -70,8 +70,8 @@ resource "jamfpro_account" "jamf_pro_account_001" {
   email                 = "exampleEmailthing@domain.com"
   enabled               = "Enabled"
   force_password_change = true
-  access_level          = "Full Access" // Full Access / Site Access / Group Access
-  privilege_set         = "Administrator"      // "Administrator", "Auditor", "Enrollment Only", "Custom"
+  access_level          = "Full Access"   // Full Access / Site Access / Group Access
+  privilege_set         = "Administrator" // "Administrator", "Auditor", "Enrollment Only", "Custom"
 
 }
 
@@ -112,9 +112,9 @@ resource "jamfpro_account" "jamf_pro_account_003" {
   ]
 
   jss_actions_privileges = [
-    "Allow User to Enroll", 
-    "Assign Users to Computers", 
-    "Assign Users to Mobile Devices", 
+    "Allow User to Enroll",
+    "Assign Users to Computers",
+    "Assign Users to Mobile Devices",
     "Change Password"
   ]
 
