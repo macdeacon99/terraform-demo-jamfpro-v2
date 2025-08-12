@@ -1,6 +1,4 @@
 
-##################################################################################
-
 # // Minimum Configuration
 
 # resource "jamfpro_computer_prestage_enrollment" "minimum_example" {
