@@ -60,6 +60,7 @@
 #   ]
 
 # }
+
 // example of account with admin privileges and full access
 resource "jamfpro_account" "jamf_pro_account_001" {
   name                  = "gd-tf-localtest-account-custom-privileges-full-access"
